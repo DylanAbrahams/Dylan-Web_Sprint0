@@ -1,0 +1,27 @@
+/*********************/
+/* CUSTOM PROPERTIES */
+/*********************/
+
+:root {
+	/* startje */
+	--default-color: black;
+	--link-color: black;
+	--header-background: rgb(115, 12, 6);
+	--color-background: lightblue;
+}
+
+body {
+    background-color: var(--color-background);
+    position:relative;
+}
+
+h1 {
+    color:var(--default-color)
+}
+
+.background-button {
+    display: fixed;
+    position: absolute;
+    top:1em;
+    right:1.5em;
+}
