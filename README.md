@@ -15,5 +15,18 @@ Verder heb ik een knop rechtsboven staan die de kleuren van de achtergrond kleur
 
 ### Vrijdag 6 februari
 
+## Week 2
 
+### Maandag 9 februari
+Vandaag moet ik naar de tandarts om 13:00 dus ben ik helaas niet aanwezig.
+
+### Donderdag 10 februari
+
+### Woensdag 11 februari
+
+### Donderdag 12 februari
+Vandaag om 10.00 is de deadline
+
+### Vrijdag 13 februari
+Vrij
 
