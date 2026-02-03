@@ -3,25 +3,61 @@
 /*********************/
 
 :root {
-	/* startje */
-	--default-color: black;
-	--link-color: black;
-	--header-background: rgb(115, 12, 6);
-	--color-background: lightblue;
+    --default-color: black;
+    --link-color: black;
+    --color-background-day: rgb(143, 201, 220);
+    --color-background-night: rgb(8, 21, 80);
 }
 
 body {
-    background-color: var(--color-background);
-    position:relative;
+    color: black;
+    background-color: var(--color-background-day);
+    transition: background-color 0.3s ease;
+    position: relative;
+
+}
+body.night {
+    background-color: var(--color-background-night);
+    color:white;
 }
 
-h1 {
-    color:var(--default-color)
-}
-
+/* Thema verander knop */
 .background-button {
     display: fixed;
     position: absolute;
-    top:1em;
-    right:1.5em;
+    top: 1em;
+    right: 1.5em;
+}
+
+
+
+/* Pijltoetsen */
+.arrow-controls {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  font-family: sans-serif;
+}
+
+.arrow-controls button {
+  width: 50px;
+  height: 50px;
+  border: 2px solid black;
+  background: transparent;
+  color: black;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.1s;
+}
+
+.arrow-controls button.active {
+  background: black;
+  color: white;
 }
