@@ -13,10 +13,11 @@ Voor nu heb ik wat standaard HTML en CSS erin gezet en heb ik ervoor gezorgd dat
 Verder heb ik een knop rechtsboven staan die de kleuren van de achtergrond kleur veranderd. Dit wordt gedaan door de body een .night class te geven.
 
 ### Woensdag 4 februari
-Te laat 
+Vandaag was ik helaas te laat vanwege het OV. De treinen op Schiphol reden niet vanwege een brandalarm. Ik kon gelukkig nog wel de Directus → FETCH → JSON → HTML workshop volgen. Ik heb geleerd over API's en JSONs en heb mijn Github website nu gekloond op mijn computer. Nu kan ik mijn veranderingen gelijk pushen naar Github. 
 
-Data ophalen uit database Workshop
-Visitekaartje website
+Verder heb ik een visitekaart website gemaakt tijdens de workshop waarmee ik data heb opgehaald uit een API over mezelf door een URL op te halen, de data eruit te fetchen met een functie en deze af te spelen met InnerHTML.
+
+Op mijn eigen website ben ik begonnen aan een platformer. Ik heb al ervaring met het maken van platformers in JavaScript in jaar 1, dus vond het wel bij mij passen. Momenteel heb ik een canvas met een vierkant die je links en rechts kan besturen met de W en D. Verder kun je ook de pijltoetsen gebruiken en staan er op het scherm ook pijltjes die je kan gebruiken. Verder is er zwaartekracht waardoor het vierkantje omlaag valt en heb ik een platform waar het vierkantje op kan staan. In jaar 1 had ik een volledig spel gemaakt in JavaScript. Hier heb ik wat code uit recycled. Ik heb veel code wel herschreven want mijn code van toen was niet heel optimaal en netjes geschreven. Verder had ik toen een tutorial gebruikt van Chris Courses voor JavaScript platformers. Die video staat vermeld in de bronnenlijst.
 
 ### Donderdag 5 februari
 
@@ -37,3 +38,6 @@ Vandaag om 10.00 is de deadline
 ### Vrijdag 13 februari
 Vrij
 
+## Bronnenlijst
+Chris Courses Platformer
+https://www.youtube.com/watch?v=4q2vvZn5aoo
