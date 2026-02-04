@@ -27,7 +27,7 @@ Visitekaartje website
 ### Maandag 9 februari
 Vandaag moet ik naar de tandarts om 13:00 dus ben ik helaas niet aanwezig.
 
-### Donderdag 10 februari
+### Dinsdag 10 februari
 
 ### Woensdag 11 februari
 
