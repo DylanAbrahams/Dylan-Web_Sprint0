@@ -4,6 +4,9 @@ Welkom bij de README van mijn website voor Sprint 0 van de minor Web Design & De
 
 ## Week 1
 
+### Maandag 2 februari
+Jarig & vrij
+
 ### Dinsdag 3 februari
 Vandaag heb ik een eerste idee voor de website gehad; ik wil een interactieve platformer maken waarbij je met het toetsenbord een personage kan besturen en vervolgens mijn leerdoelen kan vinden door rond te zoeken in het scherm
 Voor nu heb ik wat standaard HTML en CSS erin gezet en heb ik ervoor gezorgd dat de website hier op Github staat. Momenteel wordt deze geupdatet wanneer ik de bestanden handmatig upload.
