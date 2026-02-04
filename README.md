@@ -10,6 +10,10 @@ Voor nu heb ik wat standaard HTML en CSS erin gezet en heb ik ervoor gezorgd dat
 Verder heb ik een knop rechtsboven staan die de kleuren van de achtergrond kleur veranderd. Dit wordt gedaan door de body een .night class te geven.
 
 ### Woensdag 4 februari
+Te laat 
+
+Data ophalen uit database Workshop
+Visitekaartje website
 
 ### Donderdag 5 februari
 
