@@ -89,6 +89,16 @@ class Platform {
 const player = new Player()
 const platform = new Platform()
 
+var platforms = [
+        new Platform({
+            x: 500,
+            y: 300
+        }),
+        new Platform({
+            x: 300,
+            y: 465
+        })]
+
 
 
 
@@ -96,7 +106,9 @@ function animate() {
   requestAnimationFrame(animate)
   c.clearRect(0, 0, canvas.width, canvas.height)
   player.update()
-  platform.draw()
+    platforms.forEach((platform) => {
+        platform.draw()
+    })
 
   // Speler besturen (links en rechts)
   // Rechts
