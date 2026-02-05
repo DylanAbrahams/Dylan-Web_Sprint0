@@ -3,39 +3,40 @@
 /*********************/
 
 html {
+    --color-scheme: light dark;
+
     --default-color: black;
-    --night-color: white;
-
-    --color-background-day: rgb(143, 201, 220);
-    --color-background-night: rgb(8, 21, 80);
-
+    --color-background: rgb(143, 201, 220);
     --link-color: black;
     --arrowkey-color: white;
 }
 
+/* Water theme overrides */
+html[data-theme="water"] {
+    --color-background: #a0e0ff; /* watery background */
+    --default-color: #004080;     /* dark blue text */
+}
+
 body {
     color: var(--default-color);
-    background-color: var(--color-background-day);
+    background-color: var(--color-background);
     transition: background-color 0.3s ease;
     position: relative;
-
 }
 
-body.night {
-    background-color: var(--color-background-night);
-    color: var(--night-color);
-}
+
+
 
 canvas {
-  position:absolute;
-  background: lightblue;
-  z-index:-1;
-  width:100%;
-  height:100vh;
+    position: absolute;
+    background: lightblue;
+    z-index: -1;
+    width: 100%;
+    height: 100vh;
 }
 
 /* Thema verander knop */
-.background-button {
+.theme-button {
     display: fixed;
     position: absolute;
     top: 1em;

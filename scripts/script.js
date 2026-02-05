@@ -1,10 +1,22 @@
 
-// Achtergrond knop
-const button = document.querySelector('.background-button');
+// Thema knop
+const button = document.querySelector('.theme-button');
+
+// Track whether water theme is active
+let waterThemeEnabled = false;
 
 button.addEventListener('click', () => {
-  document.body.classList.toggle('night');
+  waterThemeEnabled = !waterThemeEnabled; // toggle boolean
+
+  if (waterThemeEnabled) {
+    document.documentElement.setAttribute('data-theme', 'water');
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+  }
+  console.log("Water Theme: "+waterThemeEnabled)
 });
+
+
 
 
 
@@ -16,7 +28,7 @@ canvas.width = innerWidth
 canvas.height = innerHeight
 
 // Zwaartekracht
-const gravity = 0.01;
+const gravity = 0.05;
 const keys = {
   right: {
     pressed: false
@@ -90,14 +102,14 @@ const player = new Player()
 const platform = new Platform()
 
 var platforms = [
-        new Platform({
-            x: 500,
-            y: 300
-        }),
-        new Platform({
-            x: 300,
-            y: 465
-        })]
+  new Platform({
+    x: 500,
+    y: 300
+  }),
+  new Platform({
+    x: 300,
+    y: 465
+  })]
 
 
 
@@ -106,9 +118,9 @@ function animate() {
   requestAnimationFrame(animate)
   c.clearRect(0, 0, canvas.width, canvas.height)
   player.update()
-    platforms.forEach((platform) => {
-        platform.draw()
-    })
+  platforms.forEach((platform) => {
+    platform.draw()
+  })
 
   // Speler besturen (links en rechts)
   // Rechts
@@ -128,17 +140,17 @@ function animate() {
 
   // Platform collision (alleen de bovenkant)
 
-    if (player.position.y + player.height <=
-      platform.position.y &&
-      player.position.y + player.height + player.velocity.y >=
-      platform.position.y &&
-      player.position.x + player.width >=
-      platform.position.x &&
-      player.position.x <=
-      platform.position.x + platform.width) {
-      player.velocity.y = 0
-    }
-  
+  if (player.position.y + player.height <=
+    platform.position.y &&
+    player.position.y + player.height + player.velocity.y >=
+    platform.position.y &&
+    player.position.x + player.width >=
+    platform.position.x &&
+    player.position.x <=
+    platform.position.x + platform.width) {
+    player.velocity.y = 0
+  }
+
 
   console.log(player.position.x);
 }
@@ -154,32 +166,52 @@ animate()
 // Pijltoetsen
 const arrows = document.querySelectorAll('.arrow');
 
-// Helper: ArrowKey → direction (alleen voor keys)
+// Helper: ArrowKey → direction
 function getDirection(key) {
   if (key === "ArrowLeft") return "left";
   if (key === "ArrowRight") return "right";
-  return null; // ArrowUp / ArrowDown doen nog niks
+  if (key === "ArrowUp") return "up";
+  return null; // ArrowDown doen we nog niet
 }
 
-// Muis events
+// Muis + touch events
 arrows.forEach(button => {
   const arrowKey = button.dataset.key;
   const dir = getDirection(arrowKey);
 
-  button.addEventListener('mousedown', () => {
+  function press() {
     button.classList.add('active');
-    if (dir) keys[dir].pressed = true;
-  });
 
-  button.addEventListener('mouseup', () => {
-    button.classList.remove('active');
-    if (dir) keys[dir].pressed = false;
-  });
+    if (dir === "up") {
+      // SPRINGEN op mobiel / touch
+      platforms.forEach(platform => {
+        if (player.velocity.y === 0) {
+          player.velocity.y -= 3;
+        }
+      });
+    }
 
-  button.addEventListener('mouseleave', () => {
+    if (dir && dir !== "up") keys[dir].pressed = true;
+  }
+
+  function release() {
     button.classList.remove('active');
-    if (dir) keys[dir].pressed = false;
-  });
+    if (dir && dir !== "up") keys[dir].pressed = false;
+  }
+
+  // Muis events
+  button.addEventListener('mousedown', press);
+  button.addEventListener('mouseup', release);
+  button.addEventListener('mouseleave', release);
+
+  // Touch events (mobiel)
+  button.addEventListener('touchstart', e => {
+    e.preventDefault(); // voorkomt scroll/zoom
+    press();
+  }, { passive: false });
+
+  button.addEventListener('touchend', release);
+  button.addEventListener('touchcancel', release);
 });
 
 // Toetsenbord events (WASD + pijltjes)
@@ -192,28 +224,41 @@ const keyMap = {
   ArrowUp: "ArrowUp",
   ArrowDown: "ArrowDown",
   ArrowRight: "ArrowRight",
+  " ": "ArrowUp", // Space
 };
 
 document.addEventListener("keydown", event => {
   const key = keyMap[event.key];
   if (!key) return;
 
-  document
-    .querySelector(`.arrow[data-key="${key}"]`)
-    ?.classList.add("active");
+  if (event.repeat) return;
+
+  if (key === "ArrowUp") {
+    platforms.forEach(platform => {
+      if (player.velocity.y === 0) {
+        player.velocity.y -= 3;
+      }
+    });
+  }
+
+  document.querySelector(`.arrow[data-key="${key}"]`)?.classList.add("active");
 
   const dir = getDirection(key);
-  if (dir) keys[dir].pressed = true;
+  if (dir && dir !== "up") keys[dir].pressed = true;
 });
 
 document.addEventListener("keyup", event => {
   const key = keyMap[event.key];
   if (!key) return;
 
-  document
-    .querySelector(`.arrow[data-key="${key}"]`)
-    ?.classList.remove("active");
+  document.querySelector(`.arrow[data-key="${key}"]`)?.classList.remove("active");
 
   const dir = getDirection(key);
-  if (dir) keys[dir].pressed = false;
+  if (dir && dir !== "up") keys[dir].pressed = false;
 });
+
+
+
+
+
+

@@ -20,11 +20,19 @@ Verder heb ik een visitekaart website gemaakt tijdens de workshop waarmee ik dat
 Op mijn eigen website ben ik begonnen aan een platformer. Ik heb al ervaring met het maken van platformers in JavaScript in jaar 1, dus vond het wel bij mij passen. Momenteel heb ik een canvas met een vierkant die je links en rechts kan besturen met de W en D. Verder kun je ook de pijltoetsen gebruiken en staan er op het scherm ook pijltjes die je kan gebruiken. Verder is er zwaartekracht waardoor het vierkantje omlaag valt en heb ik een platform waar het vierkantje op kan staan. In jaar 1 had ik een volledig spel gemaakt in JavaScript. Hier heb ik wat code uit recycled. Ik heb veel code wel herschreven want mijn code van toen was niet heel optimaal en netjes geschreven. Verder had ik toen een tutorial gebruikt van Chris Courses voor JavaScript platformers. Die video staat vermeld in de bronnenlijst.
 
 ### Donderdag 5 februari
-Mapjes toevoegen
-HTML Tag ipv ::root
+Vandaag zijn we begonnen met 2 workshops: 1 over thema's en 1 over responsiveness. Voor themas is laten zien hoe je makkelijk de kleuren kan bepalen van light & dark mode. Ik ga zelf wat anders doen dan light/dark. Ik heb het idee om een water thema toe te voegen. In mijn platformer zou je dan op de normale thema van links naar rechts kunnen bewegen met zwaartekracht. Je kan niet in de lucht springen. Als het water thema aan staat, kun je in de lucht "zwemmen". Voor nu heb ik mijn code aangepast om een water thema aan en uit te zetten. Verder heb ik mijn ::root veranderd naar html.
+
+Op het begin van de dag werd iedereens Github pagina besproken. Mijn Github was bijna goed. Het enige wat ik miste is wat folders. Ik heb mijn stylesheet en script in hun eigen mapje gezet en een IMG folder toegevoegd. 
+
+Ik heb de spring functie toegevoegd. Je kan springen met W, Space en de bovenpijl toets (zowel op scherm als toetsenbord). Verder heb ik de toetsenbord op het scherm geupdatet om te werken op mobiel.
+
 
 Springen toevoegen
+
+Water Theme Togglen
+
 Platforms toevoegen
+
 
 ### Vrijdag 6 februari
 
