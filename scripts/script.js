@@ -13,7 +13,7 @@ button.addEventListener('click', () => {
   } else {
     document.documentElement.removeAttribute('data-theme');
   }
-  console.log("Water Theme: "+waterThemeEnabled)
+  console.log("Water Theme: " + waterThemeEnabled)
 });
 
 
@@ -77,14 +77,13 @@ class Player {
 
 class Platform {
   constructor(
-    // {x,y,}
+    { x, y, width, height}
   ) {
     this.position = {
-      x: 200,
-      y: 500
+      x, y
     }
-    this.width = 200
-    this.height = 20
+    this.width = width
+    this.height = height
   }
 
   draw() {
@@ -99,17 +98,11 @@ class Platform {
 }
 
 const player = new Player()
-const platform = new Platform()
+const platforms = [
+  new Platform({ x: 50, y: 700, width:300, height:20 }),
+  new Platform({ x: 200, y: 465, width:300, height:20 })
+]
 
-var platforms = [
-  new Platform({
-    x: 500,
-    y: 300
-  }),
-  new Platform({
-    x: 300,
-    y: 465
-  })]
 
 
 
@@ -139,17 +132,18 @@ function animate() {
   }
 
   // Platform collision (alleen de bovenkant)
-
-  if (player.position.y + player.height <=
-    platform.position.y &&
-    player.position.y + player.height + player.velocity.y >=
-    platform.position.y &&
-    player.position.x + player.width >=
-    platform.position.x &&
-    player.position.x <=
-    platform.position.x + platform.width) {
-    player.velocity.y = 0
-  }
+  platforms.forEach((platform) => {
+    if (player.position.y + player.height <=
+      platform.position.y &&
+      player.position.y + player.height + player.velocity.y >=
+      platform.position.y &&
+      player.position.x + player.width >=
+      platform.position.x &&
+      player.position.x <=
+      platform.position.x + platform.width) {
+      player.velocity.y = 0
+    }
+  })
 
 
   console.log(player.position.x);
@@ -185,7 +179,7 @@ arrows.forEach(button => {
     if (dir === "up") {
       // SPRINGEN op mobiel / touch
       platforms.forEach(platform => {
-        if (player.velocity.y === 0) {
+        if (player.velocity.y === 0 || waterThemeEnabled) {
           player.velocity.y -= 3;
         }
       });
@@ -235,7 +229,7 @@ document.addEventListener("keydown", event => {
 
   if (key === "ArrowUp") {
     platforms.forEach(platform => {
-      if (player.velocity.y === 0) {
+      if (player.velocity.y === 0 || waterThemeEnabled) {
         player.velocity.y -= 3;
       }
     });
