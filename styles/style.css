@@ -22,6 +22,8 @@ body {
     background-color: var(--color-background);
     transition: background-color 0.3s ease;
     position: relative;
+    margin:0;
+    padding:0;
 }
 
 
@@ -29,14 +31,19 @@ body {
 
 canvas {
     position: absolute;
+    top:0;
+    left:0;
+    background:transparent;
     z-index: -1;
     width: 100%;
     height: 100vh;
+    padding:0;
+    margin:0;
 }
+
 
 /* Thema verander knop */
 .theme-button {
-    display: fixed;
     position: absolute;
     top: 1em;
     right: 1.5em;

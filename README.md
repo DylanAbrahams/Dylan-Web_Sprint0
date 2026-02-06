@@ -54,3 +54,6 @@ Vrij
 ## Bronnenlijst
 Chris Courses Platformer
 https://www.youtube.com/watch?v=4q2vvZn5aoo
+
+W3 Schools Positions
+https://www.w3schools.com/css/css_positioning.asp

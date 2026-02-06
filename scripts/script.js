@@ -43,8 +43,8 @@ class Player {
     // {x,y,}
   ) {
     this.position = {
-      x: 300,
-      y: 300
+      x: 350,
+      y: 400
     }
     this.velocity = {
       x: 0, y: 0,
@@ -77,7 +77,7 @@ class Player {
 
 class Platform {
   constructor(
-    { x, y, width, height}
+    { x, y, width, height }
   ) {
     this.position = {
       x, y
@@ -97,10 +97,56 @@ class Platform {
   }
 }
 
+class Goal {
+  constructor(
+    { x, y,}
+  ) {
+    this.position = {
+      x, y
+    }
+    this.width = 30
+    this.height = 30
+  }
+
+  draw() {
+    c.fillStyle = 'pink'
+    c.fillRect(
+      this.position.x,
+      this.position.y,
+      this.width,
+      this.height,
+    )
+  }
+}
+
+
 const player = new Player()
 const platforms = [
-  new Platform({ x: 50, y: 700, width:300, height:20 }),
-  new Platform({ x: 200, y: 465, width:300, height:20 })
+  new Platform({ x: 0, y: 160, width: 258, height: 20 }),
+  new Platform({ x: 359, y: 160, width: 77, height: 20 }),
+  new Platform({ x: 258, y: 225, width: 80, height: 20 }),
+
+  new Platform({ x: 170, y: 305, width: 260, height: 20 }),
+  new Platform({ x: 88, y: 385, width: 80, height: 20 }),
+
+  new Platform({ x: 0, y: 465, width: 104, height: 20 }),
+  new Platform({ x: 290, y: 465, width: 139, height: 20 }),
+  new Platform({ x: 140, y: 550, width: 80, height: 20 }),
+  new Platform({ x: 85, y: 465, width: 20, height: 194 }),
+  new Platform({ x: 85, y: 640, width: 265, height: 20 }),
+
+  new Platform({ x: 0, y: 562, width: 50, height: 20 }),
+  new Platform({ x: 0, y: 750, width: 112, height: 20 }),
+  new Platform({ x: 183, y: 750, width: 85, height: 20 }),
+  new Platform({ x: 330, y: 750, width: 100, height: 20 }),
+
+  new Platform({ x: 0, y: 912, width: 432, height: 20 }),
+  
+]
+const goals = [
+  new Goal({ x: 74, y: 92, }),
+  new Goal({ x: 10, y: 512, }),
+  new Goal({ x: 375, y: 812, }),
 ]
 
 
@@ -113,6 +159,9 @@ function animate() {
   player.update()
   platforms.forEach((platform) => {
     platform.draw()
+  })
+  goals.forEach((goal) => {
+    goal.draw()
   })
 
   // Speler besturen (links en rechts)
@@ -141,6 +190,32 @@ function animate() {
       platform.position.x &&
       player.position.x <=
       platform.position.x + platform.width) {
+      player.velocity.y = 0
+    }
+    // Obstakel collision linkerkant
+    if (player.position.x + player.width <= platform.position.x &&
+      player.position.x + player.width + player.velocity.x >= platform.position.x &&
+      player.position.y + player.height >= platform.position.y &&
+      player.position.y <= platform.position.y + platform.height
+    ) {
+      player.velocity.x = 0
+    }
+
+    // Obstakel collision rechterkant
+    if (player.position.x >= platform.position.x + platform.width &&
+      player.position.x + player.velocity.x <= platform.position.x + platform.width &&
+      player.position.y + player.height >= platform.position.y &&
+      player.position.y <= platform.position.y + platform.height
+    ) {
+      player.velocity.x = 0
+    }
+
+    // Obstakel collision onderkant
+    if (player.position.y >= platform.position.y + platform.height &&
+      player.position.y + player.velocity.y <= platform.position.y + platform.height &&
+      player.position.x + player.width >= platform.position.x &&
+      player.position.x <= platform.position.x + platform.width
+    ) {
       player.velocity.y = 0
     }
   })
