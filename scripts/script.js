@@ -41,6 +41,7 @@ const keys = {
   }
 }
 
+
 class Player {
   constructor(
     // {x,y,}

@@ -27,14 +27,14 @@ Op het begin van de dag werd iedereens Github pagina besproken. Mijn Github was 
 Ik heb de spring functie toegevoegd. Je kan springen met W, Space en de bovenpijl toets (zowel op scherm als toetsenbord). Verder heb ik de toetsenbord op het scherm geupdatet om te werken op mobiel.
 
 
-Springen toevoegen
-
-Water Theme Togglen
-
-Platforms toevoegen
 
 
 ### Vrijdag 6 februari
+Vandaag moesten we een eerste versie van onze website laten zien. Ik heb in de ochtend een level gemaakt voor op mobiel. Dit level heb ik eerst ontworpen in Figma en daarna toegepast in JavaScript. Ik kon in Figma mijn frame dezelfde grootte maken als mijn canvas en kon daardoor alle waardes van grootte en coordinaten 1 op 1 toepassen.
+
+Verder heb ik mijn code wat opgeschoont. Er zat een bug in het spel waardoor je in het water thema extra hoog sprong. Ik weet niet precies waardoor het kwam maar toen ik wat overbodige code (over wel/niet kunnen springen op platforms) had verwijderd was de sprong weer normaal. Verder kun je niet meer buiten het canvas springen (tenzij je naar beneden valt)
+
+Ook heb ik een boek object toegevoegd. Voor nu nog een vierkant. Ik heb een collider functie gemaakt met behulp van ChatGPT waardoor de speler met dit object kan interacteren. Wanneer de speler tegen het "boek" aanloopt verdwijnt het boek en verschint een popup.
 
 ## Week 2
 

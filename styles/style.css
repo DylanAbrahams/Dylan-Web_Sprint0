@@ -8,6 +8,7 @@ html {
     --default-color: black;
     --color-background: rgb(244, 218, 189);
     --button-color: #007BFF;
+    --popup-background: white;
     --arrowkey-color: white;
 }
 
@@ -16,6 +17,7 @@ html[data-theme="water"] {
     --color-background: #4b97bd; /* watery background */
     --default-color: #004080;     /* dark blue text */
     --button-color: green;
+    --popup-background: lightblue;
 }
 
 body {
@@ -40,7 +42,13 @@ canvas {
     height: 100vh;
     padding:0;
     margin:0;
+
+    /* @media (width > 1000px) {
+    width:430px;
+    height:932px;
+} */
 }
+
 
 
 /* Thema verander knop */
@@ -73,7 +81,7 @@ canvas {
   left: 10%;
   right: 10%;
   padding: 20px;
-  background-color: white;
+  background-color: var(--popup-background);
   color: var(--default-color);
   border: 3px solid var(--default-color);
   border-radius: 8px; 
