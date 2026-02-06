@@ -57,3 +57,13 @@ https://www.youtube.com/watch?v=4q2vvZn5aoo
 
 W3 Schools Positions
 https://www.w3schools.com/css/css_positioning.asp
+
+ChatGPT: Lopen met de pijltoetsen
+Ik had al code voor het bewegen, maar ik heb aan Chat gevraagd hoe ik handig de functie kan toepassen op zowel WASD, de pijltoetsen en de schermtoetsen voor zowel muis als touch
+Prompt:
+
+ChatGPT: Collision met boek
+Prompt: 
+
+Animista: CSS Animaties
+https://animista.net/play/entrances/rotate-in-2/rotate-in-2-bck-cw

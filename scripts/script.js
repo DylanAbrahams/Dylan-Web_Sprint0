@@ -29,6 +29,9 @@ canvas.height = innerHeight
 
 // Zwaartekracht
 const gravity = 0.05;
+let message = ""       // de tekst die in beeld komt
+let messageTimer = 0   // timer zodat tekst tijdelijk verschijnt
+
 const keys = {
   right: {
     pressed: false
@@ -97,19 +100,20 @@ class Platform {
   }
 }
 
-class Goal {
+class Book {
   constructor(
-    { x, y,}
+    { x, y, content}
   ) {
     this.position = {
       x, y
     }
     this.width = 30
     this.height = 30
+    this.content = content
   }
 
   draw() {
-    c.fillStyle = 'pink'
+    c.fillStyle = 'brown'
     c.fillRect(
       this.position.x,
       this.position.y,
@@ -141,88 +145,134 @@ const platforms = [
   new Platform({ x: 330, y: 750, width: 100, height: 20 }),
 
   new Platform({ x: 0, y: 912, width: 432, height: 20 }),
-  
+
 ]
-const goals = [
-  new Goal({ x: 74, y: 92, }),
-  new Goal({ x: 10, y: 512, }),
-  new Goal({ x: 375, y: 812, }),
+var books = [
+  new Book({ x: 74, y: 92, content: "Leerdoel 1 - Ik wil indrukwekkende animaties kunnen maken in CSS"}),
+  new Book({ x: 10, y: 512, content: "Leerdoel 2 - Ik wil mezelf verbeteren in ideeen bedenken voor themas van websites"}),
+  new Book({ x: 375, y: 812, content: "Leerdoel 3 - Ik wil meer efficient code kunnen schrijven en zo min mogelijk overbodige code hebben."}),
 ]
 
 
 
 
+
+function isColliding(a, b) {
+  return (
+    a.position.x < b.position.x + b.width &&
+    a.position.x + a.width > b.position.x &&
+    a.position.y < b.position.y + b.height &&
+    a.position.y + a.height > b.position.y
+  )
+}
 
 function animate() {
   requestAnimationFrame(animate)
   c.clearRect(0, 0, canvas.width, canvas.height)
+
   player.update()
+
+  // Platforms tekenen
   platforms.forEach((platform) => {
     platform.draw()
   })
-  goals.forEach((goal) => {
-    goal.draw()
+
+  // books tekenen
+  books.forEach((book) => {
+    book.draw()
   })
 
   // Speler besturen (links en rechts)
-  // Rechts
-  if (keys.right.pressed && player.position.x < 500 ||
-    (keys.right.pressed)) {
+  if (keys.right.pressed) {
     player.velocity.x = player.speed
-    // Links
-  } else if (
-    (keys.left.pressed && player.position.x > 100) ||
-    (keys.left.pressed &&
-      player.position.x > 0)
-  ) {
+  } else if (keys.left.pressed) {
     player.velocity.x = -player.speed
   } else {
     player.velocity.x = 0
   }
 
-  // Platform collision (alleen de bovenkant)
+  // Niet buiten de canvas
+  if (player.position.x < 0) {
+    player.position.x = 0
+    player.velocity.x = 0
+  }
+  if (player.position.x + player.width > canvas.width) {
+    player.position.x = canvas.width - player.width
+    player.velocity.x = 0
+  }
+
+
+  // Platform collision
   platforms.forEach((platform) => {
-    if (player.position.y + player.height <=
-      platform.position.y &&
-      player.position.y + player.height + player.velocity.y >=
-      platform.position.y &&
-      player.position.x + player.width >=
-      platform.position.x &&
-      player.position.x <=
-      platform.position.x + platform.width) {
+    // Bovenkant
+    if (
+      player.position.y + player.height <= platform.position.y &&
+      player.position.y + player.height + player.velocity.y >= platform.position.y &&
+      player.position.x + player.width > platform.position.x &&
+      player.position.x < platform.position.x + platform.width
+    ) {
       player.velocity.y = 0
+      player.position.y = platform.position.y - player.height
     }
-    // Obstakel collision linkerkant
-    if (player.position.x + player.width <= platform.position.x &&
+
+    // Linkerkant
+    if (
+      player.position.x + player.width <= platform.position.x &&
       player.position.x + player.width + player.velocity.x >= platform.position.x &&
-      player.position.y + player.height >= platform.position.y &&
-      player.position.y <= platform.position.y + platform.height
+      player.position.y + player.height > platform.position.y &&
+      player.position.y < platform.position.y + platform.height
     ) {
       player.velocity.x = 0
+      player.position.x = platform.position.x - player.width
     }
 
-    // Obstakel collision rechterkant
-    if (player.position.x >= platform.position.x + platform.width &&
+    // Rechterkant
+    if (
+      player.position.x >= platform.position.x + platform.width &&
       player.position.x + player.velocity.x <= platform.position.x + platform.width &&
-      player.position.y + player.height >= platform.position.y &&
-      player.position.y <= platform.position.y + platform.height
+      player.position.y + player.height > platform.position.y &&
+      player.position.y < platform.position.y + platform.height
     ) {
       player.velocity.x = 0
+      player.position.x = platform.position.x + platform.width
     }
 
-    // Obstakel collision onderkant
-    if (player.position.y >= platform.position.y + platform.height &&
+    // Onderkant
+    if (
+      player.position.y >= platform.position.y + platform.height &&
       player.position.y + player.velocity.y <= platform.position.y + platform.height &&
-      player.position.x + player.width >= platform.position.x &&
-      player.position.x <= platform.position.x + platform.width
+      player.position.x + player.width > platform.position.x &&
+      player.position.x < platform.position.x + platform.width
     ) {
       player.velocity.y = 0
+      player.position.y = platform.position.y + platform.height
     }
   })
 
+  books = books.filter((book) => {
+    if (isColliding(player, book)) {
+      message = book.content
+      messageTimer = 1000
+      return false   // book verdwijnt
+    }
+    return true
+  })
 
-  console.log(player.position.x);
+if (messageTimer > 0) {
+    const popup = document.getElementById("popup");
+    const popupMessage = document.getElementById("popup-message");
+
+    popupMessage.textContent = message; // zet de tekst
+    popup.style.display = "block";      // toon popup
+
+    messageTimer--;
+} else {
+    document.getElementById("popup").style.display = "none"; // verberg als timer 0
 }
+
+
+}
+
 
 animate()
 
@@ -243,7 +293,7 @@ function getDirection(key) {
   return null; // ArrowDown doen we nog niet
 }
 
-// Muis + touch events
+// De pijltoetsen
 arrows.forEach(button => {
   const arrowKey = button.dataset.key;
   const dir = getDirection(arrowKey);
@@ -253,11 +303,9 @@ arrows.forEach(button => {
 
     if (dir === "up") {
       // SPRINGEN op mobiel / touch
-      platforms.forEach(platform => {
         if (player.velocity.y === 0 || waterThemeEnabled) {
           player.velocity.y -= 3;
         }
-      });
     }
 
     if (dir && dir !== "up") keys[dir].pressed = true;
@@ -303,11 +351,9 @@ document.addEventListener("keydown", event => {
   if (event.repeat) return;
 
   if (key === "ArrowUp") {
-    platforms.forEach(platform => {
       if (player.velocity.y === 0 || waterThemeEnabled) {
         player.velocity.y -= 3;
       }
-    });
   }
 
   document.querySelector(`.arrow[data-key="${key}"]`)?.classList.add("active");

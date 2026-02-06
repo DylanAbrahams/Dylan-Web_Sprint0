@@ -7,7 +7,7 @@ html {
 
     --default-color: black;
     --color-background: rgb(244, 218, 189);
-    --link-color: black;
+    --button-color: #007BFF;
     --arrowkey-color: white;
 }
 
@@ -15,6 +15,7 @@ html {
 html[data-theme="water"] {
     --color-background: #4b97bd; /* watery background */
     --default-color: #004080;     /* dark blue text */
+    --button-color: green;
 }
 
 body {
@@ -47,7 +48,42 @@ canvas {
     position: absolute;
     top: 1em;
     right: 1.5em;
+
+    background-color: var(--button-color); 
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
+
+/* Hover-effect: iets donkerder blauw */
+.theme-button:hover {
+    box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+}
+
+.popup {
+  position: fixed;
+  top: 25%;
+  left: 10%;
+  right: 10%;
+  padding: 20px;
+  background-color: white;
+  color: var(--default-color);
+  border: 3px solid var(--default-color);
+  border-radius: 8px; 
+  display: none;     
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  z-index: 1000;      
+}
+
+
 
 
 
