@@ -34,12 +34,26 @@ Vandaag moesten we een eerste versie van onze website laten zien. Ik heb in de o
 
 Verder heb ik mijn code wat opgeschoont. Er zat een bug in het spel waardoor je in het water thema extra hoog sprong. Ik weet niet precies waardoor het kwam maar toen ik wat overbodige code (over wel/niet kunnen springen op platforms) had verwijderd was de sprong weer normaal. Verder kun je niet meer buiten het canvas springen (tenzij je naar beneden valt)
 
-Ook heb ik een boek object toegevoegd. Voor nu nog een vierkant. Ik heb een collider functie gemaakt met behulp van ChatGPT waardoor de speler met dit object kan interacteren. Wanneer de speler tegen het "boek" aanloopt verdwijnt het boek en verschint een popup.
+Ook heb ik een boek object toegevoegd. Voor nu nog een vierkant. Ik heb een collider functie gemaakt met behulp van ChatGPT waardoor de speler met dit object kan interacteren. Wanneer de speler tegen het "boek" aanloopt verdwijnt het boek en verschint een popup met mijn leerdoelen
+Leerdoel 1 - Ik wil indrukwekkende animaties kunnen maken in CSS
+Leerdoel 2 - Ik wil mezelf verbeteren in ideeen bedenken voor themas van websites
+Leerdoel 3 - Ik wil meer efficient code kunnen schrijven en zo min mogelijk overbodige code hebben.
+
+
+
 
 ## Week 2
 
 ### Maandag 9 februari
-Vandaag moet ik naar de tandarts om 13:00 dus ben ik helaas niet aanwezig.
+Vandaag moet ik naar de tandarts om 13:00 dus ben ik helaas niet aanwezig. Verder deed het internet thuis vervelend dus had ik niet veel kunnen doen tot later in de middag.
+
+Ik heb me vandaag veel bezig gehouden met het water thema. Ik heb mijn code iets anders opgezet. Eerst had ik 1 variabel voor de achtergrond kleur. Deze zou veranderen afhankelijk van het data thema. Nu heb ik gewoon 2 variabelen, 1 voor normale achtergrond, een voor water. De rede hiervoor is omdat ik een transitie heb toegevoegd in JavaScript waarbij het water van onder omhoog komt binnen een paar seconden. Omdat beide achtergrond kleuren in beeld moeten zijn heb ik het zo moeten doen. 
+
+Ook heb ik een bubbel animatie toegevoegd. Ik had dit eerst met CSS gedaan maar helaas heb ik het uiteindelijk met JavaScript moeten doen zodat het zou werken met de thema transitie. Ik heb hier veel ChatGPT voor gebruikt door de hele tijd mijn eigen code op te sturen, zeggen wat ik wel en niet goed vind om uiteindelijk op een resultaat te komen waar ik tevreden mee ben.
+
+Daarnaast heb ik het canvas een vaste grootte gemaakt. Ik heb het een formaat voor mobiel gemaakt, maar zal ook prima speelbaar zijn op desktop. Op laptop is er een grijze achtergrond omheen dus ondanks het canvas een mobiel formaat heeft ziet hij er op desktop prima uit. Ik moest er nog voor zorgen dat de pijltoetsen en de thema knop ook binnen de canvas bleven op desktop dus ik heb alles in een wrapper gezet en de styling van de canvas hierop toegepast. Ik heb deze ook in het midden gezet met inset en transform:translate.
+
+Verder heb ik vernomen dat de extra eis gaat over het ophalen van data van andere studenten uit het API.
 
 ### Dinsdag 10 februari
 

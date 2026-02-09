@@ -7,14 +7,16 @@ html {
 
     --default-color: black;
     --color-background: rgb(244, 218, 189);
-    --button-color: #007BFF;
+    --water-background: #4b97bd; 
+
+    --color-outside: #3b3b3b;
+    --button-color: #4b97bd;
     --popup-background: white;
     --arrowkey-color: white;
 }
 
 /* Water theme */
 html[data-theme="water"] {
-    --color-background: #4b97bd; /* watery background */
     --default-color: #004080;     /* dark blue text */
     --button-color: green;
     --popup-background: lightblue;
@@ -22,8 +24,7 @@ html[data-theme="water"] {
 
 body {
     color: var(--default-color);
-    background-color: var(--color-background);
-    transition: background-color 0.3s ease;
+    background-color: var(--color-outside);
     position: relative;
     margin:0;
     padding:0;
@@ -33,22 +34,22 @@ body {
 
 
 canvas {
-    position: absolute;
-    top:0;
-    left:0;
-    background:transparent;
-    z-index: -1;
     width: 100%;
-    height: 100vh;
-    padding:0;
-    margin:0;
-
-    /* @media (width > 1000px) {
-    width:430px;
-    height:932px;
-} */
+    height: 100%;
+    display: block;
+    background: transparent;
+    z-index: 0;
 }
 
+.canvas-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 430px;
+    height: 932px;
+    transition:background-color 0.3s ease;
+}
 
 
 /* Thema verander knop */
@@ -56,7 +57,7 @@ canvas {
     position: absolute;
     top: 1em;
     right: 1.5em;
-
+    z-index: 100;
     background-color: var(--button-color); 
     color: white;
     font-size: 16px;
@@ -148,3 +149,10 @@ canvas {
     background: var(--default-color);
     color: var(--arrowkey-color);
 }
+
+
+
+
+
+
+
