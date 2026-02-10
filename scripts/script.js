@@ -5,20 +5,22 @@ const startScreen = document.getElementById("start-screen");
 const startButton = document.getElementById("start-button");
 const nameInput = document.getElementById("player-name");
 
-startButton.addEventListener("click", () => {
+startButton.addEventListener("click", async () => {
   playerName = nameInput.value.trim();
-
   if (!playerName) {
     alert("Vul eerst je naam in!");
-    return; // stop als leeg
+    return;
   }
 
-  startScreen.style.display = "none"; // overlay weg
-  gameStarted = true; // game kan starten
+  startScreen.style.display = "none";
+  gameStarted = true;
 
-  // 🔹 API check vanuit main.js
-  checkPlayerNameWithAPI(playerName);
+  await checkPlayerNameWithAPI(playerName); // check speler
+
+  // 🔹 Update de content van de bestaande boeken
+  await updateBooksContentFromAPI(289); // gebruik ID 289 of dynamische speler-ID
 });
+
 
 
 // Thema knop
@@ -149,11 +151,14 @@ const platforms = [
   new Platform({ x: 330, y: 750, width: 100, height: 20 }),
   new Platform({ x: 0, y: 912, width: 432, height: 20 }),
 ]
-var books = [
-  new Book({ x: 74, y: 92, content: "Leerdoel 1 - Ik wil indrukwekkende animaties kunnen maken in CSS" }),
-  new Book({ x: 10, y: 512, content: "Leerdoel 2 - Ik wil mezelf verbeteren in ideeen bedenken voor themas van websites" }),
-  new Book({ x: 375, y: 812, content: "Leerdoel 3 - Ik wil meer efficient code kunnen schrijven en zo min mogelijk overbodige code hebben." }),
+let books = [
+  new Book({ x: 74, y: 92, content: "" }),
+  new Book({ x: 10, y: 512, content: "" }),
+  new Book({ x: 375, y: 812, content: "" }),
 ]
+
+
+
 
 // ===================== COLLISION =====================
 function isColliding(a, b) {

@@ -2,6 +2,7 @@
 /* CUSTOM PROPERTIES */
 /*********************/
 
+
 html {
     --default-color: black;
     --color-background: rgb(244, 218, 189);
@@ -22,8 +23,16 @@ html[data-theme="water"] {
     --popup-background: lightblue;
 }
 
+@font-face {
+    font-family: 'PressStart2P';
+    src: url('fonts/PressStart2P-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 body {
-    font-family: sans-serif;
+    font-family: 'PressStart2P';
     color: var(--default-color);
     background-color: var(--color-outside);
     position: relative;
@@ -104,7 +113,6 @@ canvas {
     border: 3px solid var(--default-color);
     border-radius: 8px;
     display: none;
-    font-family: Arial, sans-serif;
     font-size: 20px;
     z-index: 1000;
 }

@@ -50,18 +50,24 @@ async function checkPlayerNameWithAPI(playerName) {
   }
 }
 
-async function logLeerdoelenForID289() {
-  const apiURL = 'https://fdnd.directus.app/items/person/289';
+async function updateBooksContentFromAPI(id) {
+  const apiURL = `https://fdnd.directus.app/items/person/${id}`;
   const response = await fetchJson(apiURL);
-
   const personData = response.data;
+
   if (personData.custom) {
     try {
       const customData = JSON.parse(personData.custom);
-      console.log("Custom Leerdoelen:");
-      customData.leerdoelen.forEach(ld => {
-        console.log(`  ${ld.id}: ${ld.beschrijving}`);
-      });
+      if (customData.leerdoelen && Array.isArray(customData.leerdoelen)) {
+        // Loop over bestaande boeken en vervang de content
+        for (let i = 0; i < books.length; i++) {
+          if (customData.leerdoelen[i]) {
+            books[i].content = customData.leerdoelen[i].beschrijving;
+          } else {
+            books[i].content = "Leerdoel ontbreekt"; // fallback
+          }
+        }
+      }
     } catch (error) {
       console.error("Error parsing custom JSON:", error);
     }
@@ -70,8 +76,6 @@ async function logLeerdoelenForID289() {
 
 
 
-// 🔹 Aanroepen
-logLeerdoelenForID289();
 
 
 // ===================== FETCH HELPERS =====================
