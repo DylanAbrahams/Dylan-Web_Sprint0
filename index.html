@@ -8,27 +8,41 @@
     <link rel="stylesheet" href="styles/style.css">
 </head>
 
+
 <body>
-    <section class="canvas-wrapper"><canvas></canvas>
-        <button class="theme-button">
-            Change Theme
-        </button>
-        <nav class="arrow-controls">
-            <button class="arrow" data-key="ArrowUp">↑</button>
-            <button class="arrow" data-key="ArrowLeft">←</button>
-            <button class="arrow" data-key="ArrowDown">↓</button>
-            <button class="arrow" data-key="ArrowRight">→</button>
-        </nav>
-        <div id="popup" class="popup">
-            <span id="popup-message"></span>
-        </div>
-    </section>
+    <main>
+        <section class="canvas-wrapper"><canvas></canvas>
+            <button class="theme-button">
+                Change Theme
+            </button>
+            <section class="player-info">
+                <p>Naam: <span id="player-name-display"></span></p>
+                <p>Kleur: <span id="player-color-display"></span></p>
+            </section>
+
+            <nav class="arrow-controls">
+                <button class="arrow" data-key="ArrowUp">↑</button>
+                <button class="arrow" data-key="ArrowLeft">←</button>
+                <button class="arrow" data-key="ArrowDown">↓</button>
+                <button class="arrow" data-key="ArrowRight">→</button>
+            </nav>
+            <div id="popup" class="popup">
+                <span id="popup-message"></span>
+            </div>
+            <div id="start-screen">
+                <div class="start-box">
+                    <h2>Welkom!</h2>
+                    <input id="player-name" type="text" placeholder="Voer je naam in">
+                    <button id="start-button">Start</button>
+                </div>
+            </div>
+        </section>
 
 
 
 
 
-    <!-- <section>
+        <!-- <section>
         <h1>Welkom op mijn website!</h1>
         <p>Ik ben Dylan Abrahams</p>
 
@@ -39,10 +53,11 @@
             <li><strong>Leerdoel 3:</strong> Ik wil leren hoe ik goede code kan schrijven op een nette manier.</li>
         </ul>
     </section> -->
-
+    </main>
 
 
     <script src="scripts/script.js"></script>
+    <script src="scripts/main.js"></script>
 </body>
 
 </html>

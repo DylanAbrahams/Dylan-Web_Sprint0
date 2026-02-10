@@ -1,3 +1,26 @@
+let gameStarted = false;
+let playerName = "";
+
+const startScreen = document.getElementById("start-screen");
+const startButton = document.getElementById("start-button");
+const nameInput = document.getElementById("player-name");
+
+startButton.addEventListener("click", () => {
+  playerName = nameInput.value.trim();
+
+  if (!playerName) {
+    alert("Vul eerst je naam in!");
+    return; // stop als leeg
+  }
+
+  startScreen.style.display = "none"; // overlay weg
+  gameStarted = true; // game kan starten
+
+  // 🔹 API check vanuit main.js
+  checkPlayerNameWithAPI(playerName);
+});
+
+
 // Thema knop
 const button = document.querySelector('.theme-button');
 
@@ -57,10 +80,11 @@ class Player {
     this.width = 20
     this.height = 20
     this.speed = 1
+    this.color = 'red';
   }
 
   draw() {
-    c.fillStyle = 'red'
+    c.fillStyle = this.color;
     c.fillRect(this.position.x, this.position.y, this.width, this.height)
   }
 
@@ -275,6 +299,7 @@ arrows.forEach(button => {
 
   function press() {
     button.classList.add('active');
+    if (!gameStarted) return;
     if (dir === "up") {
       if (player.velocity.y === 0) player.velocity.y -= 3
       else if (waterThemeEnabled) player.velocity.y -= 1.5
@@ -300,6 +325,7 @@ const keyMap = { a:"ArrowLeft", w:"ArrowUp", s:"ArrowDown", d:"ArrowRight", Arro
 
 document.addEventListener("keydown", event => {
   const key = keyMap[event.key];
+  if (!gameStarted) return;
   if (!key) return;
   if (event.repeat) return;
 

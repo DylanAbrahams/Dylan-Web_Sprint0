@@ -3,31 +3,32 @@
 /*********************/
 
 html {
-    --color-scheme: light dark;
-
     --default-color: black;
     --color-background: rgb(244, 218, 189);
-    --water-background: #4b97bd; 
+    --water-background: #4b97bd;
 
     --color-outside: #3b3b3b;
     --button-color: #4b97bd;
     --popup-background: white;
+    --background-cover: rgba(0, 0, 0, 0.7);
     --arrowkey-color: white;
 }
 
 /* Water theme */
 html[data-theme="water"] {
-    --default-color: #004080;     /* dark blue text */
+    --default-color: #004080;
+    /* dark blue text */
     --button-color: green;
     --popup-background: lightblue;
 }
 
 body {
+    font-family: sans-serif;
     color: var(--default-color);
     background-color: var(--color-outside);
     position: relative;
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
 }
 
 
@@ -48,9 +49,25 @@ canvas {
     transform: translate(-50%, 0%);
     width: 430px;
     height: 932px;
-    transition:background-color 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
+.player-info {
+    position: absolute;
+    top: 1em;
+    left: 1.5em;
+    z-index: 100;
+    font-size: 16px;
+    font-weight: 600;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    padding:10px;
+}
+
+.player-info p {
+    margin:0;
+}
 
 /* Thema verander knop */
 .theme-button {
@@ -58,7 +75,7 @@ canvas {
     top: 1em;
     right: 1.5em;
     z-index: 100;
-    background-color: var(--button-color); 
+    background-color: var(--button-color);
     color: white;
     font-size: 16px;
     font-weight: 600;
@@ -67,29 +84,29 @@ canvas {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Hover-effect: iets donkerder blauw */
+/* Hover-effect: */
 .theme-button:hover {
-    box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
     transform: translateY(-2px);
 }
 
 .popup {
-  position: fixed;
-  top: 25%;
-  left: 10%;
-  right: 10%;
-  padding: 20px;
-  background-color: var(--popup-background);
-  color: var(--default-color);
-  border: 3px solid var(--default-color);
-  border-radius: 8px; 
-  display: none;     
-  font-family: Arial, sans-serif;
-  font-size: 20px;
-  z-index: 1000;      
+    position: fixed;
+    top: 25%;
+    left: 10%;
+    right: 10%;
+    padding: 20px;
+    background-color: var(--popup-background);
+    color: var(--default-color);
+    border: 3px solid var(--default-color);
+    border-radius: 8px;
+    display: none;
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    z-index: 1000;
 }
 
 
@@ -152,7 +169,33 @@ canvas {
 
 
 
+#start-screen {
+    position: fixed;
+    inset: 0;
+    background: var(--background-cover);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    width: 100%;
+}
 
+.start-box {
+    background: var(--popup-background);
+    padding: 20px 24px;
+    border-radius: 12px;
+    text-align: center;
+    width: 260px;
+    display:flex;
+    flex-direction: column;
+}
 
+.start-box input {
+    padding: 8px;
+    margin: 10px 0;
+}
 
-
+.start-box button {
+    padding: 8px 16px;
+    cursor: pointer;
+}
