@@ -74,10 +74,6 @@ async function updateBooksContentFromAPI(id) {
   }
 }
 
-
-
-
-
 // ===================== FETCH HELPERS =====================
 async function fetchJson(url, payload = {}) {
   try {

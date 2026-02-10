@@ -1,9 +1,18 @@
+@font-face {
+    font-family: 'PressStart2P';
+    src: url('fonts/LowresPixel-Regular.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /*********************/
 /* CUSTOM PROPERTIES */
 /*********************/
 
 
 html {
+    --game-font: 'PressStart2P', sans-serif;
+
     --default-color: black;
     --color-background: rgb(244, 218, 189);
     --water-background: #4b97bd;
@@ -23,16 +32,12 @@ html[data-theme="water"] {
     --popup-background: lightblue;
 }
 
-@font-face {
-    font-family: 'PressStart2P';
-    src: url('fonts/PressStart2P-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
+
 
 
 body {
-    font-family: 'PressStart2P';
+    font-family: var(--game-font);
+    letter-spacing: 1px;
     color: var(--default-color);
     background-color: var(--color-outside);
     position: relative;
@@ -66,16 +71,22 @@ canvas {
     top: 1em;
     left: 1.5em;
     z-index: 100;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 600;
-    display:flex;
-    flex-direction:column;
-    gap:4px;
-    padding:10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
 }
 
 .player-info p {
-    margin:0;
+    margin: 0;
+    color: white;
+    text-shadow:
+        -1px -1px 0 black,
+        1px -1px 0 black,
+        -1px 1px 0 black,
+        1px 1px 0 black;
 }
 
 /* Thema verander knop */
@@ -88,6 +99,8 @@ canvas {
     color: white;
     font-size: 16px;
     font-weight: 600;
+    font-family: var(--game-font);
+    letter-spacing: 1px;
     padding: 10px 20px;
     border: none;
     border-radius: 8px;
@@ -194,7 +207,7 @@ canvas {
     border-radius: 12px;
     text-align: center;
     width: 260px;
-    display:flex;
+    display: flex;
     flex-direction: column;
 }
 
@@ -206,4 +219,14 @@ canvas {
 .start-box button {
     padding: 8px 16px;
     cursor: pointer;
+}
+
+#player-name {
+    font-family: var(--game-font);
+    letter-spacing: 1px;
+}
+
+#start-button {
+    font-family: var(--game-font);
+    letter-spacing: 1px;
 }
