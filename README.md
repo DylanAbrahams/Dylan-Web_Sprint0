@@ -96,7 +96,7 @@ In deze week heb ik mijn website afgerond en visueel naar een hoger niveau gebra
 
 Ik had maandag vooral besteed aan het water thema. De grootste veranderingen zijn de transitie wanneer het waterpeil omlaag en omhoog gaat, de bubbels die in beeld komen en de physics onder water. Onder water val je minder snel naar beneden en kun je in de lucht naar boven zwemmen. De sprongen boven de grond zijn wel minder groot dan erop.
 
-<img src="img/water-transition.png" width="100">
+<img src="img/water-transition.png" height="400">
 
 Hier zie je de water-transitie waarbij het water van onder naar boven in beeld komt.
 
