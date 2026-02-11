@@ -96,7 +96,10 @@ In deze week heb ik mijn website afgerond en visueel naar een hoger niveau gebra
 
 Ik had maandag vooral besteed aan het water thema. De grootste veranderingen zijn de transitie wanneer het waterpeil omlaag en omhoog gaat, de bubbels die in beeld komen en de physics onder water. Onder water val je minder snel naar beneden en kun je in de lucht naar boven zwemmen. De sprongen boven de grond zijn wel minder groot dan erop.
 
-![Water transitie](img/water-transition)
+<img src="img/water-transition.png" width="100">
+
+Hier zie je de water-transitie waarbij het water van onder naar boven in beeld komt.
+
 
 
 Ook heb ik het canvas een vaste mobiele grootte gegeven en alles in een wrapper geplaatst, zodat het spel zowel op mobiel als desktop goed werkt. Op desktop wordt het canvas netjes gecentreerd weergegeven met een grijze achtergrond eromheen. Daarnaast heb ik code toegevoegd over deltatime wat er voor zorgt dat het canvas op verschillende toestellen op dezelfde framerate wordt laten zien.
