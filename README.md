@@ -39,7 +39,16 @@ Leerdoel 1 - Ik wil indrukwekkende animaties kunnen maken in CSS
 Leerdoel 2 - Ik wil mezelf verbeteren in ideeen bedenken voor themas van websites
 Leerdoel 3 - Ik wil meer efficient code kunnen schrijven en zo min mogelijk overbodige code hebben.
 
+### Samenvatting Week 1
+In de eerste week heb ik mijn idee bedacht over wat mijn website zal worden en ik heb gekozen voor een interactieve platformer waarin je rond kan lopen om meer te ontdekken over mij. Ik vond platformers wel bij mij passen, want ik heb altijd al een passie gehad voor games en ik heb meerdere keren deze opleiding een platformer gemaakt dus dit leek mij een goed beeld van wie ik ben.
 
+In de eerste paar dagen heb ik vooral gefocust op de standaard elementen van een platformer implementeren zoals lopen, springen, zwaartekracht etc. Ik heb eerder in de opleiding voor het vak Inleiding Programmeren een Mario platformer gemaakt dus ik ben terug gegaan in mijn code van toen. Ik had toen voor mijn basis een tutorial gebruikt van Chris Courses, link staat in de bronnenlijst. Ik zag dat er in mijn oude code heel vaak overbodige code zat en niet geoptimaliseerd was, mijn doel is om daar wel verandering in te brengen en om goede leesbare code te schrijven. Verder had ik toen voor alle assets PNGs gebruikt. Ik wil nu ook beter worden in de website mooi maken met hulp van CSS en JS effecten.
+
+Verder heb ik deze week mijn website op Github geplaatst en deze in orde gemaakt met een README, folders, een werkende link naar de webpagina en een manier om makkelijk mijn inhoud te pushen via Github Desktop. Ik had eerst VS Codium gebruikt voor mijn code omdat het was aangeraden, maar uiteindelijk ben ik VS Code gaan gebruiken omdat Github Desktop zover ik weet alleen werkt met VS Code.
+
+Voor mijn thema had ik eerst het idee om gewoon een light & dark theme te doen. Op de light theme zou het level overdag plaatsnemen met een zon en 's nachts zou de zon vervangen worden door een maan en zouden alle objecten donker van kleur zijn etc. Ik heb uiteindelijk toch besloten om het thema iets te maken wat effect heeft op de gameplay. Ik ben gekomen op een water thema waarmee de speler oneindig kan "zwemmen" zodat hij/zij op plekken kan komen die anders onbereikbaar zouden zijn. Er is rechtsboven een knop waarmee je het thema kan veranderen.
+
+Voor de expo van vrijdag heb ik een level gemaakt waar de speler 3 leerdoelen kan aantikken en deze een popup zouden geven met het leerdoel. Ik had het level eerst in Figma gemaakt op formaat van de canvas. Vervolgens kon ik alle waardes van alle platforms overnemen (hun lengte, breedte, de X- en de Y-coordinaten) en deze toepassen in mijn script. Uiteindelijk ben ik tot dit prototype gekomen. Deze is gemaakt voor mobiel. Wellicht maak ik nog een desktop versie maar we hebben volgende week maar 3 dagen dus we zullen nog zien.
 
 
 ## Week 2
@@ -56,27 +65,57 @@ Daarnaast heb ik het canvas een vaste grootte gemaakt. Ik heb het een formaat vo
 Verder heb ik vernomen dat de extra eis gaat over het ophalen van data van andere studenten uit het API.
 
 ### Dinsdag 10 februari
-Workshop typografie
-API geupdatet
-Andere mensen kunnen vinden
-Startscherm + achtergrond
-Naam kunnen invullen op volledige naam en nickname
-Kleur van de speler is favoriete kleur uit de API
-Tekst linksboven
-Leerdoelen opgehaald
-Font toegevoegd
+Vandaag begonnen we met een workshop over typografie. We hebben het gehad over contrast, spatiering, aantal karakters/woorden per regel, fonts, wanneer fonts wel en niet geladen worden en wat er dan gebeurt etc. Ik heb nu zelf ook een font geinstalleerd op mijn site. Ik had eerst PressStart2P maar die vond ik niet heel mooi + hij was te breed, dus ben ik gegaan voor LowerPixel (de file heet LowresPixel voor een of andere reden). Ik vond wel de letters iets te dicht op elkaar dus heb wat letterspacing erin gezet voor wat ademruimte.
+
+Verder ben ik vandaag de hele dag bezig geweest met API. Ten eerste heb ik een aparte JS bestand gemaakt genaamd main.js waarmee ik de data ophaal uit de database met alle studenten. De code hiervoor heb ik nog van de workshop van vorige week woensdag. Voor mijn idee heb ik van iedereen de naam, nickname en favoriete kleur nodig.
+
+Voor mijn game heb ik een startscherm toegevoegd. Pas wanneer je je naam invult en op Start drukt kun je de speler besturen. Wanneer je naam invult loopt het script door alle namen heen om een match te vinden. Als er een match is komen de naam en kleur linksboven in het scherm te staan. Het werkt zowel op naam als nickname. Verder kun je ook alleen je voornaam doen en hoef je niet de volledige naam uit te typen. Ook is het niet hoofdletter gevoelig. Als je een favoriete kleur hebt uitgekozen, wordt de speler de kleur die je gekozen hebt.
+
+Op mijn eigen API heb ik in de custom JSON een vakje voor leerdoelen gemaakt. De leerdoelen op mijn website worden allemaal opgehaald uit de API en zijn te zien in de popups die tevoorschijn komen wanneer je in het spel een boek object oppakt
+
+
 
 ### Woensdag 11 februari
-Code Review met Mila
+Vandaag hebben aan het begin van de dag een code review gehad. Ik was samen met Mila. Het meeste van mijn code was in JavaScript in mijn script.js. Ik heb zoveel mogelijk code in een logische volgorde. Ik heb bovenaan vooral alle variabelen en HTML objecten, daarna het startscherm met de code voor API (de code voor het ophalen van de data zit in mijn main.js script). Daarna worden de classes gedefinieerd en worden de objecten geplaatst in de wereld. Daarna komen de functies waarvan de grootste animate() waarmee het canvas geladen wordt met alle inhoud die erop beweeegt. Onderaan staan de controls, waaronder muis, touchscreen en toetsenbord.
+
+Vandaag was mijn doel om mijn prototype mooi te maken. Ik heb op mijn canvas alleen nog maar blokken staan: de speler is een vierkant, alle platforms zijn simpele rechthoeken en de achtergrond is 1 solid kleur.
+
+Ik wilde alles maken met code, ik heb geen images of svgs gebruikt. De speler heb ik een nieuwe look gegeven door deze rond te maken, 2 cirkels toe te voegen voor de ogen, een zwarte border eromheen te zetten en een glans erop te plaatsen. Verder bewegen de ogen ook de kant op waar de speler naartoe loopt. Er was ook een variant met armen, maar die vond ik niet geslaagd. De foto staat in het week verslag.
+
+De platforms heb ik ook een upgrade gegeven. Ze zijn nog steeds een groene rechthoek maar hebben nu een gradient met een border eromheen. Dit ziet er al een stuk beter uit. Verder heb ik de achtergrond ook een gradient gegeven en lijken de boeken die de speler pakt voor de leerdoelen nu ook daadwerkelijk op boeken ipv vierkantjes.
+
+Voor de lol heb ik nog toegevoegd dat wanneer je op H drukt, de speler allemaal HSL kleuren wordt. Ik vond het wel leuk om iets meer gekloot op de website te hebben. Achteraf had ik meer van dit soort dingetjes erop gezet.
+
+Ook heb ik het canvas laten laden in deltatime (dt). Dit betekent dat de framerate meer consistent zou zijn en de ene laptop niet veel sneller zou zijn dan de ander. Het viel me namelijk op dat op mijn telefoon de website een stuk langzamer runde dan op mijn laptop. Dit is nu al een stuk beter.
+
+Uiteindelijk heb ik nog animaties toegevoegd aan de popups die tevoorschiijn komen wanneer je een boek oppakt. Ik had al best snel een animatie op alle 3 die er best goed uitzag met een fade, scale en rotate, maar ik wilde op ze allemaal nog een effect hebben gebaseerd op elk leerdoel. Ik heb met JavaScript een confetti effect gezet op het leerdoel over animatie, een glitch effect met CSS op het leerdoel over code en een vuur effect op het leerdoel over thema's bedenken. Deze heeft wel een kleine bug wanneer hij verdwijnt maar so be it.
 
 
+### Week 2 Samenvatting
+In deze week heb ik mijn website afgerond en visueel naar een hoger niveau gebracht. De focus lag op het verfijnen van het water-thema, het correct implementeren van API-data en het professioneel afwerken van het prototype.
+
+Ik had maandag vooral besteed aan het water thema. De grootste veranderingen zijn de transitie wanneer het waterpeil omlaag en omhoog gaat, de bubbels die in beeld komen en de physics onder water. Onder water val je minder snel naar beneden en kun je in de lucht naar boven zwemmen. De sprongen boven de grond zijn wel minder groot dan erop.
+
+![Water transitie](img/water-transition)
 
 
-### Donderdag 12 februari
-Vandaag om 10.00 is de deadline
+Ook heb ik het canvas een vaste mobiele grootte gegeven en alles in een wrapper geplaatst, zodat het spel zowel op mobiel als desktop goed werkt. Op desktop wordt het canvas netjes gecentreerd weergegeven met een grijze achtergrond eromheen. Daarnaast heb ik code toegevoegd over deltatime wat er voor zorgt dat het canvas op verschillende toestellen op dezelfde framerate wordt laten zien.
 
-### Vrijdag 13 februari
-Vrij
+<hier screenshot van canvas op desktop met grijze achtergrond>
+
+Dinsdag was ik de hele dag bezig met het implementeren van API’s. Via een apart main.js bestand haal ik studentgegevens op uit de database. Ik heb een startscherm toegevoegd waarbij je eerst je naam moet invoeren. Het script zoekt vervolgens naar een match (op naam of nickname). Wanneer er een match is, wordt de naam en favoriete kleur linksboven weergegeven en krijgt de speler deze kleur. Ook worden mijn leerdoelen dynamisch opgehaald uit mijn eigen API en getoond in de popups.
+
+<hier screenshot van startscherm met naam-invoer> <hier screenshot van speler met opgehaalde naam + kleur linksboven>
+
+Na de code review heb ik mijn project visueel sterk verbeterd. Alles is volledig met code gemaakt. De speler is nu rond, heeft ogen die meekijken in de looprichting, een rand en een glans. De platforms en achtergrond hebben gradients gekregen en de boeken zien er daadwerkelijk uit als boeken.
+
+<hier screenshot van vernieuwde speler en platforms>
+
+Tot slot heb ik animaties toegevoegd aan de leerdoel-popups. Elke popup heeft een basisanimatie (fade, scale en rotate) én een uniek effect per leerdoel: confetti bij animaties, een glitch-effect bij code en een vuur-effect bij thema’s bedenken.
+
+<hier screenshot van popup met animatie-effect actief>
+
+In deze laatste week heb ik mijn concept niet alleen technisch afgerond, maar ook visueel en inhoudelijk versterkt. Het project is nu een interactieve website waarin mijn leerdoelen, technische vaardigheden en creatieve ideeën samenkomen in één werkend geheel.
 
 ## Bronnenlijst
 Chris Courses Platformer
