@@ -44,12 +44,21 @@ In de eerste week heb ik mijn idee bedacht over wat mijn website zal worden en i
 
 In de eerste paar dagen heb ik vooral gefocust op de standaard elementen van een platformer implementeren zoals lopen, springen, zwaartekracht etc. Ik heb eerder in de opleiding voor het vak Inleiding Programmeren een Mario platformer gemaakt dus ik ben terug gegaan in mijn code van toen. Ik had toen voor mijn basis een tutorial gebruikt van Chris Courses, link staat in de bronnenlijst. Ik zag dat er in mijn oude code heel vaak overbodige code zat en niet geoptimaliseerd was, mijn doel is om daar wel verandering in te brengen en om goede leesbare code te schrijven. Verder had ik toen voor alle assets PNGs gebruikt. Ik wil nu ook beter worden in de website mooi maken met hulp van CSS en JS effecten.
 
+<img src="img/eerste-prototype.png" height="500">
+
 Verder heb ik deze week mijn website op Github geplaatst en deze in orde gemaakt met een README, folders, een werkende link naar de webpagina en een manier om makkelijk mijn inhoud te pushen via Github Desktop. Ik had eerst VS Codium gebruikt voor mijn code omdat het was aangeraden, maar uiteindelijk ben ik VS Code gaan gebruiken omdat Github Desktop zover ik weet alleen werkt met VS Code.
+
+<img src="img/github.png" height="500">
 
 Voor mijn thema had ik eerst het idee om gewoon een light & dark theme te doen. Op de light theme zou het level overdag plaatsnemen met een zon en 's nachts zou de zon vervangen worden door een maan en zouden alle objecten donker van kleur zijn etc. Ik heb uiteindelijk toch besloten om het thema iets te maken wat effect heeft op de gameplay. Ik ben gekomen op een water thema waarmee de speler oneindig kan "zwemmen" zodat hij/zij op plekken kan komen die anders onbereikbaar zouden zijn. Er is rechtsboven een knop waarmee je het thema kan veranderen.
 
+<img src="img/water-theme.png" height="500">
+
 Voor de expo van vrijdag heb ik een level gemaakt waar de speler 3 leerdoelen kan aantikken en deze een popup zouden geven met het leerdoel. Ik had het level eerst in Figma gemaakt op formaat van de canvas. Vervolgens kon ik alle waardes van alle platforms overnemen (hun lengte, breedte, de X- en de Y-coordinaten) en deze toepassen in mijn script. Uiteindelijk ben ik tot dit prototype gekomen. Deze is gemaakt voor mobiel. Wellicht maak ik nog een desktop versie maar we hebben volgende week maar 3 dagen dus we zullen nog zien.
 
+<img src="img/figma.png" height="500">
+<img src="img/level.png" height="500">
+(Negeer de speler en tekst linksboven, dat is van week 2)
 
 ## Week 2
 
@@ -100,7 +109,7 @@ Ik had maandag vooral besteed aan het water thema. De grootste veranderingen zij
 
 Ook heb ik het canvas een vaste mobiele grootte gegeven en alles in een wrapper geplaatst, zodat het spel zowel op mobiel als desktop goed werkt. Op desktop wordt het canvas netjes gecentreerd weergegeven met een grijze achtergrond eromheen. Daarnaast heb ik code toegevoegd over deltatime wat er voor zorgt dat het canvas op verschillende toestellen op dezelfde framerate wordt laten zien.
 
-<img src="img/mobile-canvas" height="500">
+<img src="img/mobile-canvas.png" height="500">
 
 Dinsdag was ik de hele dag bezig met het implementeren van API’s. Via een apart main.js bestand haal ik studentgegevens op uit de database. Ik heb een startscherm toegevoegd waarbij je eerst je naam moet invoeren. Het script zoekt vervolgens naar een match (op naam of nickname). Wanneer er een match is, wordt de naam en favoriete kleur linksboven weergegeven en krijgt de speler deze kleur. Ook worden mijn leerdoelen dynamisch opgehaald uit mijn eigen API en getoond in de popups.
 
