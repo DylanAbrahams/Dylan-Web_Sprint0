@@ -113,7 +113,7 @@ Na de code review heb ik mijn project visueel sterk verbeterd. Alles is volledig
 
 Tot slot heb ik animaties toegevoegd aan de leerdoel-popups. Elke popup heeft een basisanimatie (fade, scale en rotate) én een uniek effect per leerdoel: confetti bij animaties, een glitch-effect bij code en een vuur-effect bij thema’s bedenken.
 
-<img src="img/confetti-effect.png" height="300"> <img src="img/fire-effect.png" height="300"> <img src="img/glitch-effect.png" height="300"> 
+<img src="img/confetti-effect.png" height="150"> <img src="img/fire-effect.png" height="150"> <img src="img/glitch-effect.png" height="150"> 
 
 
 
