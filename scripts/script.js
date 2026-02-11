@@ -1,23 +1,23 @@
+// Deze code is erg geinspireerd op de 2D platformer tutorial van Chris Courses, zie bronnenlijst
+// https://www.youtube.com/watch?v=4q2vvZn5aoo
+
+
 let gameStarted = false;
 let playerName = "";
 
+// ============== HTML Elementen =================
 const startScreen = document.getElementById("start-screen");
 const startButton = document.getElementById("start-button");
 const nameInput = document.getElementById("player-name");
 const popup = document.getElementById("popup");
 const popupMessage = document.getElementById("popup-message");
-
 const button = document.querySelector('.theme-button');
+
+// ================== VARIABELS ===================
 const gravity = 0.05;
 let waterThemeEnabled = false;
 let message = ""       // De tekst in de popups
 let messageTimer = 0   // timer zodat de popup tijdelijk verschijnt
-
-// Canvas
-const canvas = document.querySelector('canvas')
-var c = canvas.getContext('2d');
-canvas.width = 430
-canvas.height = 932
 
 // Toetsen die je ingedrukt houdt
 const keys = {
@@ -25,7 +25,15 @@ const keys = {
   left: { pressed: false }
 }
 
-// =================== START KNOP ===================
+// ===================== CANVAS ====================
+const canvas = document.querySelector('canvas')
+var c = canvas.getContext('2d');
+canvas.width = 430
+canvas.height = 932
+
+
+// ============== START KNOP + API ===================
+// Deze code is met gemaakt met hulp van ChatGPT, zie bronnenlijst
 startButton.addEventListener("click", async () => {
   playerName = nameInput.value.trim();
   if (!playerName) {
@@ -61,7 +69,8 @@ let waterHeight = 0;
 const bubblesArray = [];
 const maxBubbles = 15;
 
-// initial bubbles
+// ===================== BUBBELS =====================
+// Deze code om de bubbels te genereren is gegenereerd door ChatGPT, zie bronnenlijst
 for (let i = 0; i < maxBubbles; i++) {
   bubblesArray.push({
     x: Math.random() * canvas.width,
@@ -90,6 +99,7 @@ class Player {
   }
 
   draw() {
+    // De positie van de ogen en de glans is gegenereerd met ChatGPT, zie bronnenlijst
     const centerX = this.position.x + this.width / 2;
     const centerY = this.position.y + this.height / 2;
     const radius = this.width / 2;
@@ -151,6 +161,7 @@ class Player {
     }
   }
 
+  // Deze functie heb ik met AI gemaakt, zie bronnenlijst
   toggleColorCycle() {
     if (this.isCyclingColors) {
       clearInterval(this.colorInterval);
@@ -198,12 +209,13 @@ class Book {
   constructor({ x, y, content, type}) {
     this.position = { x, y };
     this.width = 22.5;
-    this.height = 30; // slightly taller for book feel
+    this.height = 30;
     this.content = content;
     this.type = type;
   }
 
   draw() {
+    // De code en ontwerp van het boek is door ChatGPT gegenereerd, zie bronnenlijst
     // Base gradient for book cover
     const gradient = c.createLinearGradient(
       this.position.x, this.position.y,
@@ -275,6 +287,7 @@ function isColliding(a, b) {
 }
 
 // ============= CONFETTI ANIMATIE POPUP ===============
+// De confetti animatie is door ChatGPT gemaakt, zie bronnenlijst
 function popupConfetti() {
     const container = document.getElementById("popup-effect");
     const colors = ["#ff4d4d","#4dff4d","#4d4dff","#ffff4d","#ff4dff"];
@@ -300,6 +313,7 @@ function popupConfetti() {
 }
 
 // ===================== ANIMATE =====================
+// De code voor deltatime is gegenereerd door ChatGPT, zie bronnenlijst
 let lastTime = 0; // tijd van vorige frame
 
 function animate(time) {
@@ -319,25 +333,12 @@ function animate(time) {
 
 // Gradient van warm naar zacht pastel
 const bgGradient = c.createLinearGradient(0, 0, 0, canvas.height);
-bgGradient.addColorStop(0, "#FFD8A8");  // licht oranje boven (zonsopkomst)
-bgGradient.addColorStop(0.5, "#FFE4E1"); // zacht roze midden
-bgGradient.addColorStop(1, "#FFF5F5");  // bijna wit onder
+bgGradient.addColorStop(0, "#FFD8A8");  // Geel
+bgGradient.addColorStop(0.5, "#FFE4E1"); // Roze
+bgGradient.addColorStop(1, "#FFF5F5");  // Wit
 c.fillStyle = bgGradient;
 c.fillRect(0, 0, canvas.width, canvas.height);
 
-// Subtiele glansbollen / lichteffecten voor sfeer
-for (let i = 0; i < 10; i++) {
-  const radius = 20 + Math.random() * 30;
-  const x = Math.random() * canvas.width;
-  const y = Math.random() * canvas.height;
-  const gradient = c.createRadialGradient(x, y, 0, x, y, radius);
-  gradient.addColorStop(0, "rgba(255, 255, 255, 0.05)");
-  gradient.addColorStop(1, "rgba(255, 255, 255, 0)");
-  c.fillStyle = gradient;
-  c.beginPath();
-  c.arc(x, y, radius, 0, Math.PI * 2);
-  c.fill();
-}
 
   // ===== Waterhoogte aanpassen =====
   if (waterThemeEnabled && waterHeight < canvas.height) {
@@ -457,6 +458,7 @@ for (let i = 0; i < 10; i++) {
 animate()
 
 // ===================== CONTROLS =====================
+// Ik heb Chat gebruikt om mijn keyboard controls toe te passen op de pijltjes op het scherm, zie bronnenlijst
 const arrows = document.querySelectorAll('.arrow');
 function getDirection(key) {
   if (key === "ArrowLeft") return "left";

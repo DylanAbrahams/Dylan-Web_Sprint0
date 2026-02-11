@@ -157,7 +157,7 @@ canvas {
     pointer-events: auto;
 }
 
-
+/* De effecten hieronder zijn met AI gegenereerd, zie bronnenlijst */
 /* Animatie per book type */
 .popup.book1.show {
     transform: translateY(0) scale(1.1) rotate(-5deg);

@@ -127,18 +127,57 @@ Tot slot heb ik animaties toegevoegd aan de leerdoel-popups. Elke popup heeft ee
 
 
 ## Bronnenlijst
-Chris Courses Platformer
+### Chris Courses Platformer
+Dit is de tutorial die ik in jaar 1 had gebruikt om een sidescroller te maken. Ik heb gebruik gemaakt van code uit mijn oude project die origineel uit deze video komen waaronder het gebruik van classes met constructors, de elementen plaatsen op de canvas, physics van de speler etc.
 https://www.youtube.com/watch?v=4q2vvZn5aoo
 
-W3 Schools Positions
+### W3 Schools Positions
+Dit was een reminder hoe ik om moest gaan met positions
 https://www.w3schools.com/css/css_positioning.asp
 
-ChatGPT: Lopen met de pijltoetsen
-Ik had al code voor het bewegen, maar ik heb aan Chat gevraagd hoe ik handig de functie kan toepassen op zowel WASD, de pijltoetsen en de schermtoetsen voor zowel muis als touch
-Prompt:
+### ChatGPT
+Ik heb voor meerdere onderdelen AI gebruikt voor code. Meestal doe ik dit door mijn eigen code op te sturen, hierover een vraag stel of een toevoeging op wil hebben, mijn code te laten updaten, feedback/suggesties te geven totdat ik tevreden ben met het resultaat. Hieronder de onderdelen die door ChatGPT zijn gegenereerd. 
+Ga bij elke prompt ervan uit dat ik mijn eigen code laat zien voor context.
 
-ChatGPT: Collision met boek
-Prompt: 
+#### Lopen met de pijltoetsen
+Ik had al code voor het bewegen, maar ik heb aan Chat gevraagd hoe ik handig de functie kan toepassen op zowel WASD, de pijltoetsen en de schermtoetsen voor zowel muis als touch
+Prompt: hier is code voor lopen, kun je deze combineren met de pijltoetsen op het scherm
+
+#### Collision met boek
+Ik had al collision met platforms aan elke kant, ik heb chat gevraagd voor een kort script voor collision en deze toe te passen op het boek object. Uiteindelijk heb ik het onderdeel over de popup zelf opgelost.
+Prompt: kun je ervoor zorgen dat als de speler een boek aanraakt een popup verschijnt
+
+#### Bubbel effect in JavaScript
+Ik had een bubbel effect in CSS waar elke bubbel in een eigen grid zat en omhoog bewoog maar uiteindelijk was het handiger om dit via JavaScript te doen.
+Prompt: Wanneer WaterThemeEnabled aanstaat kun je bubbels laten omhoog laten komen via JavaScript
+
+#### Startscherm + API content filteren in JavaScript
+Een startscherm dat het spel pauzeert en waar je je naam in kan vullen. In main.js wordt de content uit de API opgehaald met het script uit de workshop van week 1 maar ik heb met Chat code gegenereerd om deze content te kunnen filteren op naam en nickname.
+Prompt: Kun je een startscherm maken waar je je naam kan invoeren en deze kan worden gematched met een naam of nickname uit het API. Je kan pas bewegen wanneer je op start drukt.
+
+#### Speler ogen & glans
+Om de speler mooi te maken heb ik ogen en een glans toegevoegd aan de Player class. De variabels als radius, centerX/Y en EyeOffset heeft Chat bedacht
+Prompt: Kan ik de speler iets mooier maken dan een vierkant?
+
+#### Boek design 
+Ik heb het design van het boek door Chat laten doen. Ik heb gelijk de code gekregen die ik nodig had
+Prompt: Ik wil de book class stylen 
+
+#### API content plaatsen in popups
+Ik heb AI gebruikt om de leerdoelen die uit de API komen te plaatsen in de popups. Ik had wel al zelf de code om de inhoud per boek aan te passen. 
+Prompt: vind deze string in de API en plaats de content in var books=[] (dit waren 3 Books)
+
+#### Deltatime
+Code voor deltatime is gegenereerd door Chat zodat het spel op verschillende systemen op dezelfde snelheid zal runnen
+Prompt: Kun je ervoor zorgen dat het spel even snel is op mobiel als op desktop
+
+#### Effecten op popups
+De special effects op de popups (confetti, vuur & glitch) zijn gemaakt met behulp van AI 
+Prompts: 
+- Ik wil voor elke book een eigen animatie
+- Voor boek 1 wil ik een confetti explosie wanneer de popup opent in JS
+- Voor boek 2 een glitch effect op de tekst
+- Voor boek 3 een vuur effect op de popup
 
 Animista: CSS Animaties (uitendelijk niet gebruikt)
 https://animista.net/play/entrances/rotate-in-2/rotate-in-2-bck-cw
