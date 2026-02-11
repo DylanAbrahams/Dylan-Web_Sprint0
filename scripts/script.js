@@ -4,6 +4,9 @@ let playerName = "";
 const startScreen = document.getElementById("start-screen");
 const startButton = document.getElementById("start-button");
 const nameInput = document.getElementById("player-name");
+const popup = document.getElementById("popup");
+const popupMessage = document.getElementById("popup-message");
+
 
 startButton.addEventListener("click", async () => {
   playerName = nameInput.value.trim();
@@ -69,26 +72,80 @@ for (let i = 0; i < maxBubbles; i++) {
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
     radius: 4 + Math.random() * 6,
-    speed: 0.3 + Math.random() * 0.7,
+    speed: 1.5 + Math.random() * 3,  // verhoogd van 0.3–1 → 2–5
     alpha: 0.1 + Math.random() * 0.15,
   });
 }
+
 
 // ===================== CLASSES =====================
 class Player {
   constructor() {
     this.position = { x: 350, y: 400 }
     this.velocity = { x: 0, y: 0 }
-    this.width = 20
-    this.height = 20
-    this.speed = 1
+    this.width = 30
+    this.height = 30
+    this.speed = 4
     this.color = 'red';
   }
 
-  draw() {
-    c.fillStyle = this.color;
-    c.fillRect(this.position.x, this.position.y, this.width, this.height)
-  }
+draw() {
+  const centerX = this.position.x + this.width / 2;
+  const centerY = this.position.y + this.height / 2;
+  const radius = this.width / 2;
+
+  // 🌟 Basis cirkel speler in this.color
+  c.fillStyle = this.color;
+  c.beginPath();
+  c.arc(centerX, centerY, radius, 0, Math.PI * 2);
+  c.fill();
+
+  // ✨ Glans-effect (wit, transparant)
+  c.fillStyle = 'rgba(255, 255, 255, 0.3)';
+  c.beginPath();
+  c.arc(centerX - radius / 3, centerY - radius / 3, radius / 2.5, 0, Math.PI * 2);
+  c.fill();
+
+  // 👀 Twee ogen die naar beweging kijken
+  const eyeOffsetY = -radius / 4;
+  const eyeRadius = radius / 5;
+  const pupilRadius = radius / 10;
+
+  // Bepaal oogrichting
+  let eyeDir = 0; // 0 = recht vooruit
+  if (keys.left.pressed) eyeDir = -radius / 3;   // naar links
+  else if (keys.right.pressed) eyeDir = radius / 3; // naar rechts
+
+  // Links oog
+  const leftEyeX = centerX - radius / 3 + eyeDir;
+  const leftEyeY = centerY + eyeOffsetY;
+
+  c.fillStyle = 'white';
+  c.beginPath();
+  c.arc(leftEyeX, leftEyeY, eyeRadius, 0, Math.PI * 2);
+  c.fill();
+
+  c.fillStyle = 'black';
+  c.beginPath();
+  c.arc(leftEyeX, leftEyeY, pupilRadius, 0, Math.PI * 2);
+  c.fill();
+
+  // Rechts oog
+  const rightEyeX = centerX + radius / 3 + eyeDir;
+  const rightEyeY = centerY + eyeOffsetY;
+
+  c.fillStyle = 'white';
+  c.beginPath();
+  c.arc(rightEyeX, rightEyeY, eyeRadius, 0, Math.PI * 2);
+  c.fill();
+
+  c.fillStyle = 'black';
+  c.beginPath();
+  c.arc(rightEyeX, rightEyeY, pupilRadius, 0, Math.PI * 2);
+  c.fill();
+}
+
+
 
   update() {
     this.draw()
@@ -171,8 +228,17 @@ function isColliding(a, b) {
 }
 
 // ===================== ANIMATE =====================
-function animate() {
-requestAnimationFrame(animate);
+let lastTime = 0; // tijd van vorige frame
+
+function animate(time) {
+  requestAnimationFrame(animate);
+
+  // Bereken deltaTime in milliseconden
+  const deltaTime = time - lastTime;
+  lastTime = time;
+
+  // Normaliseer deltaTime naar basis van 60 FPS (16.666ms per frame)
+  const dt = deltaTime / 16.666;
 
   const normalBg = getComputedStyle(document.documentElement)
                      .getPropertyValue('--color-background').trim();
@@ -185,9 +251,9 @@ requestAnimationFrame(animate);
 
   // ===== Waterhoogte aanpassen =====
   if (waterThemeEnabled && waterHeight < canvas.height) {
-    waterHeight += 2; // omhoog
+    waterHeight += 7 * dt; // omhoog
   } else if (!waterThemeEnabled && waterHeight > 0) {
-    waterHeight -= 2; // omlaag
+    waterHeight -= 7 * dt; // omlaag
   }
 
   // ===== Water tekenen zolang waterHeight > 0 =====
@@ -197,7 +263,7 @@ requestAnimationFrame(animate);
 
     // Bubbels tekenen
     bubblesArray.forEach(b => {
-      b.y -= b.speed;
+      b.y -= b.speed * dt;
       if (b.y + b.radius < canvas.height - waterHeight) {
         b.y = canvas.height;
         b.x = Math.random() * canvas.width;
@@ -209,28 +275,25 @@ requestAnimationFrame(animate);
     });
   }
 
-
-
-
-  // Player
-  player.update()
+  // Player update met deltaTime
+  player.update(dt);
 
   // Platforms
-  platforms.forEach(platform => platform.draw())
+  platforms.forEach(platform => platform.draw());
 
   // Books
-  books.forEach(book => book.draw())
+  books.forEach(book => book.draw());
 
   // Player movement
-  if (keys.right.pressed) player.velocity.x = player.speed
-  else if (keys.left.pressed) player.velocity.x = -player.speed
-  else player.velocity.x = 0
+  if (keys.right.pressed) player.velocity.x = player.speed * dt;
+  else if (keys.left.pressed) player.velocity.x = -player.speed * dt;
+  else player.velocity.x = 0;
 
   // Canvas boundaries
   if (player.position.x < 0) { player.position.x = 0; player.velocity.x = 0 }
   if (player.position.x + player.width > canvas.width) { player.position.x = canvas.width - player.width; player.velocity.x = 0 }
 
-  // Platform collision
+  // Platform collision (je huidige code kan hier blijven)
   platforms.forEach(platform => {
     // Bovenkant
     if (
@@ -263,29 +326,28 @@ requestAnimationFrame(animate);
       player.position.x + player.width > platform.position.x &&
       player.position.x < platform.position.x + platform.width
     ) { player.velocity.y = 0; player.position.y = platform.position.y + platform.height }
-  })
+  });
 
   // Book collision
   books = books.filter(book => {
     if (isColliding(player, book)) {
-      message = book.content
-      messageTimer = 1000
-      return false
+      message = book.content;
+      messageTimer = 1000; // Hoe lang popup zichtbaar blijft
+      return false; // Verwijder boek
     }
-    return true
-  })
+    return true;
+  });
 
   // Popup
   if (messageTimer > 0) {
-    const popup = document.getElementById("popup");
-    const popupMessage = document.getElementById("popup-message");
     popupMessage.textContent = message;
-    popup.style.display = "block";
-    messageTimer--;
+    popup.classList.add("show");
+    messageTimer -= dt; // ook met deltaTime
   } else {
-    document.getElementById("popup").style.display = "none";
+    popup.classList.remove("show");
   }
 }
+
 
 animate()
 

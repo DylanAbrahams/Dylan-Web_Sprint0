@@ -1,8 +1,8 @@
 // ===================== CONFIG =====================
 // Toegestane IDs
-const allowedIds = [69, 71, 72, 228];
-for (let i = 279; i <= 325; i++) {
-  if (![281, 282, 294, 317, 319, 323].includes(i)) {
+const allowedIds = [69, 71, 72, 228,];
+for (let i = 279; i <= 332; i++) {
+  if (![281, 282, 287, 294, 317, 319, 323].includes(i)) {
     allowedIds.push(i);
   }
 }

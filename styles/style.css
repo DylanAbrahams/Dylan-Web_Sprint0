@@ -64,14 +64,25 @@ canvas {
     width: 430px;
     height: 932px;
     transition: background-color 0.3s ease;
+
+    @media(max-height:932px){
+        width:auto;
+        height:90vh;
+    }
+
+    @media(max-width:430px){
+        width:90vw;
+        height:auto;
+    }
 }
 
 .player-info {
     position: absolute;
+    max-width:50%;
     top: 1em;
     left: 1.5em;
     z-index: 100;
-    font-size: 20px;
+    font-size: 1em;
     font-weight: 600;
     display: flex;
     flex-direction: column;
@@ -95,9 +106,10 @@ canvas {
     top: 1em;
     right: 1.5em;
     z-index: 100;
+    max-width:40%;
     background-color: var(--button-color);
     color: white;
-    font-size: 16px;
+    font-size: 1em;
     font-weight: 600;
     font-family: var(--game-font);
     letter-spacing: 1px;
@@ -125,10 +137,26 @@ canvas {
     color: var(--default-color);
     border: 3px solid var(--default-color);
     border-radius: 8px;
-    display: none;
     font-size: 20px;
     z-index: 1000;
+
+    /* 👇 Animatie instellingen */
+    opacity: 0;
+    transform: translateY(30px);
+    pointer-events: none;
+
+    transition: 
+        opacity 0.35s ease,
+        transform 0.35s ease;
 }
+
+/* Wanneer popup zichtbaar is */
+.popup.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
 
 
 
@@ -199,6 +227,7 @@ canvas {
     justify-content: center;
     z-index: 1000;
     width: 100%;
+
 }
 
 .start-box {

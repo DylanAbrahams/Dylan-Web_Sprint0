@@ -56,8 +56,21 @@ Daarnaast heb ik het canvas een vaste grootte gemaakt. Ik heb het een formaat vo
 Verder heb ik vernomen dat de extra eis gaat over het ophalen van data van andere studenten uit het API.
 
 ### Dinsdag 10 februari
+Workshop typografie
+API geupdatet
+Andere mensen kunnen vinden
+Startscherm + achtergrond
+Naam kunnen invullen op volledige naam en nickname
+Kleur van de speler is favoriete kleur uit de API
+Tekst linksboven
+Leerdoelen opgehaald
+Font toegevoegd
 
 ### Woensdag 11 februari
+Code Review met Mila
+
+
+
 
 ### Donderdag 12 februari
 Vandaag om 10.00 is de deadline
