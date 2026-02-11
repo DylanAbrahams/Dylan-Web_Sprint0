@@ -7,7 +7,25 @@ const nameInput = document.getElementById("player-name");
 const popup = document.getElementById("popup");
 const popupMessage = document.getElementById("popup-message");
 
+const button = document.querySelector('.theme-button');
+const gravity = 0.05;
+let waterThemeEnabled = false;
+let message = ""       // De tekst in de popups
+let messageTimer = 0   // timer zodat de popup tijdelijk verschijnt
 
+// Canvas
+const canvas = document.querySelector('canvas')
+var c = canvas.getContext('2d');
+canvas.width = 430
+canvas.height = 932
+
+// Toetsen die je ingedrukt houdt
+const keys = {
+  right: { pressed: false },
+  left: { pressed: false }
+}
+
+// =================== START KNOP ===================
 startButton.addEventListener("click", async () => {
   playerName = nameInput.value.trim();
   if (!playerName) {
@@ -20,20 +38,13 @@ startButton.addEventListener("click", async () => {
 
   await checkPlayerNameWithAPI(playerName); // check speler
 
-  // 🔹 Update de content van de bestaande boeken
-  await updateBooksContentFromAPI(289); // gebruik ID 289 of dynamische speler-ID
+  // Leerdoelen in de boeken wordt uit API gehaald
+  await updateBooksContentFromAPI(289); // mijn ID is 289
 });
 
-
-
-// Thema knop
-const button = document.querySelector('.theme-button');
-
-// Track whether water theme is active
-let waterThemeEnabled = false;
-
+// =================== THEMA KNOP ===================
 button.addEventListener('click', () => {
-  waterThemeEnabled = !waterThemeEnabled; // toggle boolean
+  waterThemeEnabled = !waterThemeEnabled;
 
   if (waterThemeEnabled) {
     document.documentElement.setAttribute('data-theme', 'water');
@@ -43,22 +54,6 @@ button.addEventListener('click', () => {
   }
   console.log("Water Theme: " + waterThemeEnabled)
 });
-
-// Canvas
-const canvas = document.querySelector('canvas')
-var c = canvas.getContext('2d');
-canvas.width = 430
-canvas.height = 932
-
-// Zwaartekracht
-const gravity = 0.05;
-let message = ""       // de tekst die in beeld komt
-let messageTimer = 0   // timer zodat tekst tijdelijk verschijnt
-
-const keys = {
-  right: { pressed: false },
-  left: { pressed: false }
-}
 
 // ===================== WATER =====================
 let waterHeight = 0;
@@ -86,81 +81,96 @@ class Player {
     this.width = 30
     this.height = 30
     this.speed = 4
-    this.color = 'red';
+
+    // 🌈 HSL kleuren
+    this.hue = 0; // startkleur
+    this.color = `hsl(${this.hue}, 100%, 50%)`;
+    this.colorInterval = null;
+    this.isCyclingColors = false; // toggle
   }
 
-draw() {
-  const centerX = this.position.x + this.width / 2;
-  const centerY = this.position.y + this.height / 2;
-  const radius = this.width / 2;
+  draw() {
+    const centerX = this.position.x + this.width / 2;
+    const centerY = this.position.y + this.height / 2;
+    const radius = this.width / 2;
 
-  // 🌟 Basis cirkel speler in this.color
-  c.fillStyle = this.color;
-  c.beginPath();
-  c.arc(centerX, centerY, radius, 0, Math.PI * 2);
-  c.fill();
+    // Speler
+    c.fillStyle = this.color;
+    c.beginPath();
+    c.arc(centerX, centerY, radius, 0, Math.PI * 2);
+    c.fill();
+    c.strokeStyle = 'black';
+    c.lineWidth = 2;
+    c.stroke();
 
-  // ✨ Glans-effect (wit, transparant)
-  c.fillStyle = 'rgba(255, 255, 255, 0.3)';
-  c.beginPath();
-  c.arc(centerX - radius / 3, centerY - radius / 3, radius / 2.5, 0, Math.PI * 2);
-  c.fill();
+    // Glans
+    c.fillStyle = 'rgba(255, 255, 255, 0.3)';
+    c.beginPath();
+    c.arc(centerX - radius / 3, centerY - radius / 3, radius / 2.5, 0, Math.PI * 2);
+    c.fill();
 
-  // 👀 Twee ogen die naar beweging kijken
-  const eyeOffsetY = -radius / 4;
-  const eyeRadius = radius / 5;
-  const pupilRadius = radius / 10;
+    // Ogen
+    const eyeOffsetY = -radius / 4;
+    const eyeRadius = radius / 5;
+    const pupilRadius = radius / 10;
 
-  // Bepaal oogrichting
-  let eyeDir = 0; // 0 = recht vooruit
-  if (keys.left.pressed) eyeDir = -radius / 3;   // naar links
-  else if (keys.right.pressed) eyeDir = radius / 3; // naar rechts
+    let eyeDir = 0;
+    if (keys.left.pressed) eyeDir = -radius / 3;
+    else if (keys.right.pressed) eyeDir = radius / 3;
 
-  // Links oog
-  const leftEyeX = centerX - radius / 3 + eyeDir;
-  const leftEyeY = centerY + eyeOffsetY;
+    const drawEye = (x, y) => {
+      c.fillStyle = 'white';
+      c.beginPath();
+      c.arc(x, y, eyeRadius, 0, Math.PI * 2);
+      c.fill();
+      c.strokeStyle = 'black';
+      c.lineWidth = 1;
+      c.stroke();
 
-  c.fillStyle = 'white';
-  c.beginPath();
-  c.arc(leftEyeX, leftEyeY, eyeRadius, 0, Math.PI * 2);
-  c.fill();
+      c.fillStyle = 'black';
+      c.beginPath();
+      c.arc(x, y, pupilRadius, 0, Math.PI * 2);
+      c.fill();
+    };
 
-  c.fillStyle = 'black';
-  c.beginPath();
-  c.arc(leftEyeX, leftEyeY, pupilRadius, 0, Math.PI * 2);
-  c.fill();
-
-  // Rechts oog
-  const rightEyeX = centerX + radius / 3 + eyeDir;
-  const rightEyeY = centerY + eyeOffsetY;
-
-  c.fillStyle = 'white';
-  c.beginPath();
-  c.arc(rightEyeX, rightEyeY, eyeRadius, 0, Math.PI * 2);
-  c.fill();
-
-  c.fillStyle = 'black';
-  c.beginPath();
-  c.arc(rightEyeX, rightEyeY, pupilRadius, 0, Math.PI * 2);
-  c.fill();
-}
-
-
+    drawEye(centerX - radius / 3 + eyeDir, centerY + eyeOffsetY);
+    drawEye(centerX + radius / 3 + eyeDir, centerY + eyeOffsetY);
+  }
 
   update() {
-    this.draw()
-    this.position.x += this.velocity.x
-    this.position.y += this.velocity.y
+    this.draw();
+    this.position.x += this.velocity.x;
+    this.position.y += this.velocity.y;
 
     if (waterThemeEnabled) {
-      this.velocity.y += gravity / 3
-      this.velocity.y *= 0.98
+      this.velocity.y += gravity / 3;
+      this.velocity.y *= 0.98;
     } else {
       if (this.position.y + this.height + this.velocity.y <= canvas.height)
-        this.velocity.y += gravity
+        this.velocity.y += gravity;
+    }
+  }
+
+  toggleColorCycle() {
+    if (this.isCyclingColors) {
+      clearInterval(this.colorInterval);
+      this.colorInterval = null;
+      this.isCyclingColors = false;
+    } else {
+      this.isCyclingColors = true;
+      this.colorInterval = setInterval(() => {
+        this.hue = (this.hue + 5) % 360; // sneller door hogere stap
+        this.color = `hsl(${this.hue}, 100%, 50%)`;
+      }, 30); // snelheid van kleuren wisselen
     }
   }
 }
+
+// 👇 Key handling voor toggle
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'h' || e.key === 'H') player.toggleColorCycle();
+});
+
 
 class Platform {
   constructor({ x, y, width, height }) {
@@ -170,24 +180,59 @@ class Platform {
   }
 
   draw() {
-    c.fillStyle = 'green'
-    c.fillRect(this.position.x, this.position.y, this.width, this.height)
-  }
+  const gradient = c.createLinearGradient(this.position.x, this.position.y, this.position.x, this.position.y + this.height);
+  gradient.addColorStop(0, "#4CAF50"); // bovenkant
+  gradient.addColorStop(1, "#2E7D32"); // onderkant
+  c.fillStyle = gradient;
+  c.fillRect(this.position.x, this.position.y, this.width, this.height);
+  
+  // Optioneel: subtiele rand
+  c.strokeStyle = "#1B5E20";
+  c.lineWidth = 2;
+  c.strokeRect(this.position.x, this.position.y, this.width, this.height);
+}
+
 }
 
 class Book {
-  constructor({ x, y, content }) {
-    this.position = { x, y }
-    this.width = 30
-    this.height = 30
-    this.content = content
+  constructor({ x, y, content, type}) {
+    this.position = { x, y };
+    this.width = 22.5;
+    this.height = 30; // slightly taller for book feel
+    this.content = content;
+    this.type = type;
   }
 
   draw() {
-    c.fillStyle = 'brown'
-    c.fillRect(this.position.x, this.position.y, this.width, this.height)
+    // Base gradient for book cover
+    const gradient = c.createLinearGradient(
+      this.position.x, this.position.y,
+      this.position.x, this.position.y + this.height
+    );
+    gradient.addColorStop(0, '#8B4513'); // top: saddle brown
+    gradient.addColorStop(1, '#A0522D'); // bottom: sienna
+    c.fillStyle = gradient;
+    c.fillRect(this.position.x, this.position.y, this.width, this.height);
+
+    // Outline
+    c.strokeStyle = '#3E1F0D';
+    c.lineWidth = 2;
+    c.strokeRect(this.position.x, this.position.y, this.width, this.height);
+
+    // Spine detail
+    c.fillStyle = '#5C3317';
+    c.fillRect(this.position.x - 2, this.position.y, 4, this.height);
+
+    // Optional: subtle highlights
+    c.fillStyle = 'rgba(255, 255, 255, 0.2)';
+    c.fillRect(this.position.x + 2, this.position.y + 2, this.width - 4, 6);
+
+    // Optional: little bookmark
+    c.fillStyle = '#FFD700'; // gold
+    c.fillRect(this.position.x + this.width - 6, this.position.y + 4, 2, 8);
   }
 }
+
 
 // ===================== GAME OBJECTS =====================
 const player = new Player()
@@ -200,18 +245,20 @@ const platforms = [
   new Platform({ x: 0, y: 465, width: 104, height: 20 }),
   new Platform({ x: 290, y: 465, width: 139, height: 20 }),
   new Platform({ x: 140, y: 550, width: 80, height: 20 }),
-  new Platform({ x: 85, y: 465, width: 20, height: 194 }),
+
   new Platform({ x: 85, y: 640, width: 265, height: 20 }),
   new Platform({ x: 0, y: 562, width: 50, height: 20 }),
+  new Platform({ x: 85, y: 465, width: 20, height: 194 }),
+
   new Platform({ x: 0, y: 750, width: 112, height: 20 }),
   new Platform({ x: 183, y: 750, width: 85, height: 20 }),
   new Platform({ x: 330, y: 750, width: 100, height: 20 }),
   new Platform({ x: 0, y: 912, width: 432, height: 20 }),
 ]
 let books = [
-  new Book({ x: 74, y: 92, content: "" }),
-  new Book({ x: 10, y: 512, content: "" }),
-  new Book({ x: 375, y: 812, content: "" }),
+  new Book({ x: 74, y: 92, content: "", type: 1}),
+  new Book({ x: 375, y: 812, content: "", type: 2}),
+  new Book({ x: 10, y: 512, content: "", type: 3}),
 ]
 
 
@@ -225,6 +272,31 @@ function isColliding(a, b) {
     a.position.y < b.position.y + b.height &&
     a.position.y + a.height > b.position.y
   )
+}
+
+// ============= CONFETTI ANIMATIE POPUP ===============
+function popupConfetti() {
+    const container = document.getElementById("popup-effect");
+    const colors = ["#ff4d4d","#4dff4d","#4d4dff","#ffff4d","#ff4dff"];
+    const rect = container.getBoundingClientRect();
+
+    for (let i = 0; i < 30; i++) {
+        const c = document.createElement("div");
+        c.className = "confetti";
+        c.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
+        const x = Math.random() * rect.width;
+        const y = Math.random() * rect.height;
+        c.style.left = x + "px";
+        c.style.top = y + "px";
+        container.appendChild(c);
+
+        setTimeout(() => {
+            c.style.transform = `translate(${x + (Math.random()-0.5)*150 - x}px, ${y - Math.random()*150 - 50 - y}px) rotate(${Math.random()*720}deg)`;
+            c.style.opacity = 0;
+        }, 50);
+
+        setTimeout(() => container.removeChild(c), 1200);
+    }
 }
 
 // ===================== ANIMATE =====================
@@ -245,9 +317,27 @@ function animate(time) {
   const waterBg = getComputedStyle(document.documentElement)
                      .getPropertyValue('--water-background').trim();
 
-  // ===== Normale achtergrond altijd =====
-  c.fillStyle = normalBg;
-  c.fillRect(0, 0, canvas.width, canvas.height);
+// Gradient van warm naar zacht pastel
+const bgGradient = c.createLinearGradient(0, 0, 0, canvas.height);
+bgGradient.addColorStop(0, "#FFD8A8");  // licht oranje boven (zonsopkomst)
+bgGradient.addColorStop(0.5, "#FFE4E1"); // zacht roze midden
+bgGradient.addColorStop(1, "#FFF5F5");  // bijna wit onder
+c.fillStyle = bgGradient;
+c.fillRect(0, 0, canvas.width, canvas.height);
+
+// Subtiele glansbollen / lichteffecten voor sfeer
+for (let i = 0; i < 10; i++) {
+  const radius = 20 + Math.random() * 30;
+  const x = Math.random() * canvas.width;
+  const y = Math.random() * canvas.height;
+  const gradient = c.createRadialGradient(x, y, 0, x, y, radius);
+  gradient.addColorStop(0, "rgba(255, 255, 255, 0.05)");
+  gradient.addColorStop(1, "rgba(255, 255, 255, 0)");
+  c.fillStyle = gradient;
+  c.beginPath();
+  c.arc(x, y, radius, 0, Math.PI * 2);
+  c.fill();
+}
 
   // ===== Waterhoogte aanpassen =====
   if (waterThemeEnabled && waterHeight < canvas.height) {
@@ -330,23 +420,38 @@ function animate(time) {
 
   // Book collision
   books = books.filter(book => {
-    if (isColliding(player, book)) {
-      message = book.content;
-      messageTimer = 1000; // Hoe lang popup zichtbaar blijft
-      return false; // Verwijder boek
-    }
-    return true;
-  });
+  if (isColliding(player, book)) {
+    // Reset popup classes
+    popup.classList.remove("book1", "book2", "book3");
+    popup.classList.add("book" + book.type);
 
-  // Popup
+    message = book.content;
+    popupMessage.textContent = message;
+    popupMessage.removeAttribute("data-text");
+    messageTimer = 300;
+
+    if (book.type === 1) {
+      popupConfetti();
+    }
+    if (book.type === 3) {
+      popupMessage.setAttribute("data-text", message);
+    }
+    return false; // verwijder boek
+  }
+  return true;
+});
+  // Popup animatie
   if (messageTimer > 0) {
     popupMessage.textContent = message;
     popup.classList.add("show");
-    messageTimer -= dt; // ook met deltaTime
+    messageTimer -= dt;
   } else {
     popup.classList.remove("show");
   }
 }
+
+
+
 
 
 animate()
