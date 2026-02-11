@@ -98,27 +98,24 @@ Ik had maandag vooral besteed aan het water thema. De grootste veranderingen zij
 
 <img src="img/water-transition.png" height="400">
 
-Hier zie je de water-transitie waarbij het water van onder naar boven in beeld komt.
-
-
-
 Ook heb ik het canvas een vaste mobiele grootte gegeven en alles in een wrapper geplaatst, zodat het spel zowel op mobiel als desktop goed werkt. Op desktop wordt het canvas netjes gecentreerd weergegeven met een grijze achtergrond eromheen. Daarnaast heb ik code toegevoegd over deltatime wat er voor zorgt dat het canvas op verschillende toestellen op dezelfde framerate wordt laten zien.
 
-<hier screenshot van canvas op desktop met grijze achtergrond>
+<img src="img/mobile-canvas" height="500">
 
 Dinsdag was ik de hele dag bezig met het implementeren van API’s. Via een apart main.js bestand haal ik studentgegevens op uit de database. Ik heb een startscherm toegevoegd waarbij je eerst je naam moet invoeren. Het script zoekt vervolgens naar een match (op naam of nickname). Wanneer er een match is, wordt de naam en favoriete kleur linksboven weergegeven en krijgt de speler deze kleur. Ook worden mijn leerdoelen dynamisch opgehaald uit mijn eigen API en getoond in de popups.
 
-<hier screenshot van startscherm met naam-invoer> <hier screenshot van speler met opgehaalde naam + kleur linksboven>
+<img src="img/startscherm.png" height="500"> 
+<img src="img/player-info.png.png" height="200"> 
 
 Na de code review heb ik mijn project visueel sterk verbeterd. Alles is volledig met code gemaakt. De speler is nu rond, heeft ogen die meekijken in de looprichting, een rand en een glans. De platforms en achtergrond hebben gradients gekregen en de boeken zien er daadwerkelijk uit als boeken.
 
-<hier screenshot van vernieuwde speler en platforms>
+<img src="img/graphics.png" height="500"> 
 
 Tot slot heb ik animaties toegevoegd aan de leerdoel-popups. Elke popup heeft een basisanimatie (fade, scale en rotate) én een uniek effect per leerdoel: confetti bij animaties, een glitch-effect bij code en een vuur-effect bij thema’s bedenken.
 
-<hier screenshot van popup met animatie-effect actief>
+<img src="img/confetti-effect.png" height="300"> <img src="img/fire-effect.png" height="300"> <img src="img/glitch-effect.png" height="300"> 
 
-In deze laatste week heb ik mijn concept niet alleen technisch afgerond, maar ook visueel en inhoudelijk versterkt. Het project is nu een interactieve website waarin mijn leerdoelen, technische vaardigheden en creatieve ideeën samenkomen in één werkend geheel.
+
 
 ## Bronnenlijst
 Chris Courses Platformer
@@ -134,5 +131,5 @@ Prompt:
 ChatGPT: Collision met boek
 Prompt: 
 
-Animista: CSS Animaties
+Animista: CSS Animaties (uitendelijk niet gebruikt)
 https://animista.net/play/entrances/rotate-in-2/rotate-in-2-bck-cw
