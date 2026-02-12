@@ -65,6 +65,7 @@ button.addEventListener('click', () => {
 
 // ===================== WATER =====================
 let waterHeight = 0;
+let waveOffset = 0;
 
 const bubblesArray = [];
 const maxBubbles = 15;
@@ -191,22 +192,22 @@ class Platform {
   }
 
   draw() {
-  const gradient = c.createLinearGradient(this.position.x, this.position.y, this.position.x, this.position.y + this.height);
-  gradient.addColorStop(0, "#4CAF50"); // bovenkant
-  gradient.addColorStop(1, "#2E7D32"); // onderkant
-  c.fillStyle = gradient;
-  c.fillRect(this.position.x, this.position.y, this.width, this.height);
-  
-  // Optioneel: subtiele rand
-  c.strokeStyle = "#1B5E20";
-  c.lineWidth = 2;
-  c.strokeRect(this.position.x, this.position.y, this.width, this.height);
-}
+    const gradient = c.createLinearGradient(this.position.x, this.position.y, this.position.x, this.position.y + this.height);
+    gradient.addColorStop(0, "#4CAF50"); // bovenkant
+    gradient.addColorStop(1, "#2E7D32"); // onderkant
+    c.fillStyle = gradient;
+    c.fillRect(this.position.x, this.position.y, this.width, this.height);
+
+    // Optioneel: subtiele rand
+    c.strokeStyle = "#1B5E20";
+    c.lineWidth = 2;
+    c.strokeRect(this.position.x, this.position.y, this.width, this.height);
+  }
 
 }
 
 class Book {
-  constructor({ x, y, content, type}) {
+  constructor({ x, y, content, type }) {
     this.position = { x, y };
     this.width = 22.5;
     this.height = 30;
@@ -268,9 +269,9 @@ const platforms = [
   new Platform({ x: 0, y: 912, width: 432, height: 20 }),
 ]
 let books = [
-  new Book({ x: 74, y: 92, content: "", type: 1}),
-  new Book({ x: 375, y: 812, content: "", type: 2}),
-  new Book({ x: 10, y: 512, content: "", type: 3}),
+  new Book({ x: 74, y: 92, content: "", type: 1 }),
+  new Book({ x: 375, y: 812, content: "", type: 2 }),
+  new Book({ x: 10, y: 512, content: "", type: 3 }),
 ]
 
 
@@ -289,27 +290,27 @@ function isColliding(a, b) {
 // ============= CONFETTI ANIMATIE POPUP ===============
 // De confetti animatie is door ChatGPT gemaakt, zie bronnenlijst
 function popupConfetti() {
-    const container = document.getElementById("popup-effect");
-    const colors = ["#ff4d4d","#4dff4d","#4d4dff","#ffff4d","#ff4dff"];
-    const rect = container.getBoundingClientRect();
+  const container = document.getElementById("popup-effect");
+  const colors = ["#ff4d4d", "#4dff4d", "#4d4dff", "#ffff4d", "#ff4dff"];
+  const rect = container.getBoundingClientRect();
 
-    for (let i = 0; i < 30; i++) {
-        const c = document.createElement("div");
-        c.className = "confetti";
-        c.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
-        const x = Math.random() * rect.width;
-        const y = Math.random() * rect.height;
-        c.style.left = x + "px";
-        c.style.top = y + "px";
-        container.appendChild(c);
+  for (let i = 0; i < 30; i++) {
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    const x = Math.random() * rect.width;
+    const y = Math.random() * rect.height;
+    c.style.left = x + "px";
+    c.style.top = y + "px";
+    container.appendChild(c);
 
-        setTimeout(() => {
-            c.style.transform = `translate(${x + (Math.random()-0.5)*150 - x}px, ${y - Math.random()*150 - 50 - y}px) rotate(${Math.random()*720}deg)`;
-            c.style.opacity = 0;
-        }, 50);
+    setTimeout(() => {
+      c.style.transform = `translate(${x + (Math.random() - 0.5) * 150 - x}px, ${y - Math.random() * 150 - 50 - y}px) rotate(${Math.random() * 720}deg)`;
+      c.style.opacity = 0;
+    }, 50);
 
-        setTimeout(() => container.removeChild(c), 1200);
-    }
+    setTimeout(() => container.removeChild(c), 1200);
+  }
 }
 
 // ===================== ANIMATE =====================
@@ -327,17 +328,17 @@ function animate(time) {
   const dt = deltaTime / 16.666;
 
   const normalBg = getComputedStyle(document.documentElement)
-                     .getPropertyValue('--color-background').trim();
+    .getPropertyValue('--color-background').trim();
   const waterBg = getComputedStyle(document.documentElement)
-                     .getPropertyValue('--water-background').trim();
+    .getPropertyValue('--water-background').trim();
 
-// Gradient van warm naar zacht pastel
-const bgGradient = c.createLinearGradient(0, 0, 0, canvas.height);
-bgGradient.addColorStop(0, "#FFD8A8");  // Geel
-bgGradient.addColorStop(0.5, "#FFE4E1"); // Roze
-bgGradient.addColorStop(1, "#FFF5F5");  // Wit
-c.fillStyle = bgGradient;
-c.fillRect(0, 0, canvas.width, canvas.height);
+  // Gradient van warm naar zacht pastel
+  const bgGradient = c.createLinearGradient(0, 0, 0, canvas.height);
+  bgGradient.addColorStop(0, "#FFD8A8");  // Geel
+  bgGradient.addColorStop(0.5, "#FFE4E1"); // Roze
+  bgGradient.addColorStop(1, "#FFF5F5");  // Wit
+  c.fillStyle = bgGradient;
+  c.fillRect(0, 0, canvas.width, canvas.height);
 
 
   // ===== Waterhoogte aanpassen =====
@@ -349,8 +350,28 @@ c.fillRect(0, 0, canvas.width, canvas.height);
 
   // ===== Water tekenen zolang waterHeight > 0 =====
   if (waterHeight > 0) {
+    // Golf animatie laten bewegen
+    waveOffset += 0.05 * dt;
+
     c.fillStyle = waterBg;
-    c.fillRect(0, canvas.height - waterHeight, canvas.width, waterHeight);
+    c.beginPath();
+
+    // Start linksboven van het water
+    c.moveTo(0, canvas.height - waterHeight);
+
+    // Maak golf
+    for (let x = 0; x <= canvas.width; x += 10) {
+      const waveHeight = Math.sin(x * 0.02 + waveOffset) * 10;
+      c.lineTo(x, canvas.height - waterHeight + waveHeight);
+    }
+
+    // Sluit onderkant af
+    c.lineTo(canvas.width, canvas.height);
+    c.lineTo(0, canvas.height);
+    c.closePath();
+
+    c.fill();
+
 
     // Bubbels tekenen
     bubblesArray.forEach(b => {
@@ -421,26 +442,26 @@ c.fillRect(0, 0, canvas.width, canvas.height);
 
   // Book collision
   books = books.filter(book => {
-  if (isColliding(player, book)) {
-    // Reset popup classes
-    popup.classList.remove("book1", "book2", "book3");
-    popup.classList.add("book" + book.type);
+    if (isColliding(player, book)) {
+      // Reset popup classes
+      popup.classList.remove("book1", "book2", "book3");
+      popup.classList.add("book" + book.type);
 
-    message = book.content;
-    popupMessage.textContent = message;
-    popupMessage.removeAttribute("data-text");
-    messageTimer = 300;
+      message = book.content;
+      popupMessage.textContent = message;
+      popupMessage.removeAttribute("data-text");
+      messageTimer = 300;
 
-    if (book.type === 1) {
-      popupConfetti();
+      if (book.type === 1) {
+        popupConfetti();
+      }
+      if (book.type === 3) {
+        popupMessage.setAttribute("data-text", message);
+      }
+      return false; // verwijder boek
     }
-    if (book.type === 3) {
-      popupMessage.setAttribute("data-text", message);
-    }
-    return false; // verwijder boek
-  }
-  return true;
-});
+    return true;
+  });
   // Popup animatie
   if (messageTimer > 0) {
     popupMessage.textContent = message;
@@ -495,7 +516,7 @@ arrows.forEach(button => {
 })
 
 // Keyboard
-const keyMap = { a:"ArrowLeft", w:"ArrowUp", s:"ArrowDown", d:"ArrowRight", ArrowLeft:"ArrowLeft", ArrowUp:"ArrowUp", ArrowDown:"ArrowDown", ArrowRight:"ArrowRight", " ":"ArrowUp" }
+const keyMap = { a: "ArrowLeft", w: "ArrowUp", s: "ArrowDown", d: "ArrowRight", ArrowLeft: "ArrowLeft", ArrowUp: "ArrowUp", ArrowDown: "ArrowDown", ArrowRight: "ArrowRight", " ": "ArrowUp" }
 
 document.addEventListener("keydown", event => {
   const key = keyMap[event.key];
